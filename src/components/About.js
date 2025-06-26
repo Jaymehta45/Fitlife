@@ -14,7 +14,7 @@ const About = () => {
             handle="shrirajfit"
             status="Online"
             contactText="Contact Me"
-            avatarUrl="https://i.ibb.co/0jBbGbdj/b7a33b15-e545-4868-a528-a3ecb71a2951.jpg"
+            avatarUrl="/profile-avatar.jpg"
             showUserInfo={true}
             enableTilt={true}
             onContactClick={() => window.location.href = '#contact'}

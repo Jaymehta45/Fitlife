@@ -1,7 +1,7 @@
 import React from 'react';
 import '../index.css';
 
-const heroBg = 'https://i.ibb.co/0jBbGbdj/b7a33b15-e545-4868-a528-a3ecb71a2951.jpg';
+const heroBg = '/hero-bg.jpg';
 
 const Hero = () => (
   <section id="hero" className="hero-section-animate" style={{
