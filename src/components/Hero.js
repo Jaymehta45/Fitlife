@@ -7,17 +7,13 @@ const Hero = () => (
   <section id="hero" className="hero-section-animate" style={{
     position: 'relative',
     minHeight: '100vh',
-    width: '100vw',
+    width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     overflow: 'hidden',
     padding: 0,
     marginBottom: '2rem',
-    left: '50%',
-    right: '50%',
-    marginLeft: '-50vw',
-    marginRight: '-50vw',
   }}>
     {/* Background Image */}
     <img

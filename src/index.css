@@ -7,6 +7,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -22,6 +23,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-snap-type: y mandatory;
+  overflow-x: hidden;
 }
 
 #root {
@@ -397,4 +399,10 @@ a, .nav-link, .btn {
 .program-card-spotlight > * {
   position: relative;
   z-index: 2;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
