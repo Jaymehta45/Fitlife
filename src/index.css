@@ -406,3 +406,146 @@ img {
   height: auto;
   display: block;
 }
+
+/* ================= MOBILE OVERRIDES — keep desktop untouched ================= */
+/* Use safe-area insets for notch/homebar */
+:root {
+  --safe-top: env(safe-area-inset-top);
+  --safe-bottom: env(safe-area-inset-bottom);
+}
+
+/* GENERAL MOBILE: small and mid devices */
+@media (max-width: 768px) {
+  /* HERO / ABOUT: force column flow, respect notch and home indicator */
+  #about {
+    width: 100vw !important;
+    margin-left: 0 !important; /* section already full-bleed on desktop; neutralize desktop trick for mobile */
+    padding-top: calc(1rem + var(--safe-top)) !important;    /* push below notch */
+    padding-bottom: calc(1.2rem + var(--safe-bottom)) !important; /* leave room for home indicator */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    height: auto !important; /* avoid forcing 100svh on mobile */
+    gap: 1.25rem !important;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  /* Profile card: cap width and make vertical (portrait ratio) */
+  .pc-card-wrapper {
+    width: 92vw !important;
+    max-width: 480px !important;
+    margin: 0 auto !important;
+    transform: none !important;
+  }
+
+  .pc-card {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: 9 / 16; /* vertical phone ratio for cards */
+    border-radius: 18px !important;
+    overflow: hidden;
+  }
+
+  .pc-avatar-content .avatar {
+    position: relative !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+  }
+
+  .pc-details {
+    top: 0 !important;
+    position: relative !important;
+    padding: 0.6rem 1rem !important;
+    text-align: center !important;
+  }
+
+  .pc-user-info {
+    left: 12px !important;
+    right: 12px !important;
+    bottom: 12px !important;
+    border-radius: 12px !important;
+    padding: 10px !important;
+  }
+
+  /* Programs: one column, card uses vertical ratio and centered */
+  #programs .animate-fadeInUp > div {
+    display: block !important; /* override any row grid */
+  }
+
+  .program-card-spotlight {
+    width: 92vw !important;
+    max-width: 520px !important;
+    margin: 0 auto !important;
+    aspect-ratio: 9 / 16 !important;
+    min-height: auto !important;
+    padding: 1.25rem !important;
+  }
+
+  /* Testimonials: make cards full-bleed swipeable and sized to viewport */
+  #testimonials {
+    padding-left: clamp(1rem, 6vw, 2rem) !important;
+    padding-right: clamp(1rem, 6vw, 2rem) !important;
+  }
+
+  /* target carousel wrapper (track parent) so cards can reach edges */
+  #testimonials > .animate-fadeInUp > div {
+    width: 100% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  /* make slide card take majority of viewport width */
+  #testimonials .pc-testimonial-card,
+  #testimonials [style*="minWidth:"] {
+    min-width: 86vw !important;
+    max-width: 86vw !important;
+    width: 86vw !important;
+    margin-inline: auto !important;
+    padding: 1.6rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* nav pill adjustments so it doesn't overlap hero */
+  .nav-pill, .nav-bar {
+    top: calc(6px + var(--safe-top)) !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    padding: 0.35rem 0.75rem !important;
+    border-radius: 10px !important;
+    z-index: 1200 !important;
+    backdrop-filter: blur(6px) !important;
+  }
+
+  /* arrow controls near edges */
+  #testimonials button {
+    left: 8px !important;
+    right: 8px !important;
+    font-size: 28px !important;
+  }
+
+  /* typography scaling */
+  h2 { font-size: clamp(1.4rem, 6vw, 1.9rem) !important; }
+  p, input, textarea { font-size: clamp(0.95rem, 3.6vw, 1rem) !important; }
+  .btn { width: 100% !important; padding: 0.8rem 1rem !important; }
+}
+
+/* Smaller phones - tighten spacing */
+@media (max-width: 420px) {
+  .pc-card-wrapper { width: 94vw !important; max-width: 420px !important; }
+  .program-card-spotlight { width: 94vw !important; max-width: 420px !important; }
+  #testimonials .pc-testimonial-card { width: 92vw !important; max-width: 420px !important; }
+  .nav-pill, .nav-bar { padding: 0.3rem 0.6rem !important; font-size: 0.92rem !important; }
+  #about { padding-left: 0.75rem !important; padding-right: 0.75rem !important; }
+}
+
+/* Force safe bottom spacing to avoid home bar overlap */
+@media (max-width: 768px) {
+  body { padding-bottom: calc(var(--safe-bottom)); }
+}
