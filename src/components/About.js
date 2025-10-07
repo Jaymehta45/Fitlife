@@ -40,7 +40,7 @@ const About = () => {
             handle="shrirajfit"
             status=""
             contactText="Contact Me"
-            avatarUrl="https://ibb.co/kgJGz6TC"
+            avatarUrl="https://i.ibb.co/SXc6H7gC/PHOTO-2025-06-26-09-36-17-2.jpg"
             miniAvatarUrl="https://i.ibb.co/JjdNWHV4/PHOTO-2025-06-26-09-36-17-2.jpg"
             showUserInfo={true}
             enableTilt={true}
