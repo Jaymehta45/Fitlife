@@ -37,8 +37,8 @@ const Programs = () => {
   };
 
   return (
-    <section id="programs" style={{ background: 'linear-gradient(135deg, #181c2b 60%, #232946 100%)', borderRadius: '2rem', marginBottom: '2rem' }}>
-      <div className="container animate-fadeInUp" style={{ padding: '3rem 0' }}>
+    <section id="programs" style={{ background: 'linear-gradient(135deg, #181c2b 60%, #232946 100%)', borderRadius: '2rem', marginBottom: '2rem', minHeight: '100vh' }}>
+      <div className="container animate-fadeInUp" style={{ padding: '4rem 0' }}>
         <h2 style={{ fontSize: '2.2rem', fontWeight: 800, marginBottom: '2.5rem', color: '#fff', textAlign: 'center' }}>
           <span className="text-gradient">Our Programs</span>
         </h2>
@@ -47,6 +47,7 @@ const Programs = () => {
           gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
           gap: '2rem',
           justifyContent: 'center',
+          alignItems: 'stretch',
         }}>
           {programs.map((p, i) => (
             <div
@@ -54,6 +55,7 @@ const Programs = () => {
               ref={el => cardsRef.current[i] = el}
               className="program-card-spotlight"
               onMouseMove={(e) => handleMouseMove(e, i)}
+              style={{ minHeight: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}
             >
               <div style={{
                 fontSize: '2.5rem',

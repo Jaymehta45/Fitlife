@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import '../index.css';
 
 const navLinks = [
-  { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
+  { label: 'Home', href: '#about' },
   { label: 'Programs', href: '#programs' },
   { label: 'Testimonials', href: '#testimonials' },
   { label: 'Contact', href: '#contact' },
@@ -15,10 +14,10 @@ const Navbar = () => {
   const navRef = useRef();
 
   useEffect(() => {
-    const sectionIds = ['hero', 'about', 'programs', 'testimonials', 'contact'];
+    const sectionIds = ['about', 'programs', 'testimonials', 'contact'];
     const sections = sectionIds.map(id => document.getElementById(id));
     const handleScroll = () => {
-      let current = 'hero';
+      let current = 'about';
       for (let i = 0; i < sections.length; i++) {
         const section = sections[i];
         if (section) {
@@ -48,11 +47,28 @@ const Navbar = () => {
   }, [active]);
 
   return (
-    <nav className="navbar" style={{ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 100, background: 'rgba(17,19,27,0.96)', boxShadow: '0 2px 16px 0 rgba(24,26,34,0.18)' }}>
-      <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 64 }}>
-        <div className="logo" style={{ fontWeight: 900, fontSize: '1.5rem', letterSpacing: '-1px', color: '#a084ee' }}>Shriraj</div>
-        <div style={{ position: 'relative', flex: 1, display: 'flex', justifyContent: 'center' }}>
-          <ul ref={navRef} style={{ display: 'flex', gap: '2.2rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative' }}>
+    <nav
+      className="navbar"
+      style={{
+        position: 'fixed',
+        top: 16,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 100,
+        background: 'rgba(24,26,34,0.55)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid rgba(160,132,238,0.25)',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(160,132,238,0.15) inset',
+        borderRadius: 9999,
+        padding: '10px 16px',
+        pointerEvents: 'none'
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', pointerEvents: 'auto' }}>
+        {/* logo removed */}
+        <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
+          <ul ref={navRef} style={{ display: 'flex', gap: '1.6rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative', alignItems: 'center' }}>
             {/* Gooey blob */}
             <span
               className="gooey-blob"
@@ -61,11 +77,11 @@ const Navbar = () => {
                 top: '50%',
                 left: blobStyle.left,
                 width: blobStyle.width,
-                height: 36,
+                height: 32,
                 background: 'linear-gradient(90deg, #181a22 0%, #232946 100%)',
-                borderRadius: 18,
+                borderRadius: 16,
                 filter: 'blur(10px) saturate(2)',
-                opacity: 0.45,
+                opacity: 0.4,
                 transform: 'translateY(-50%)',
                 transition: 'left 0.35s cubic-bezier(0.23, 1, 0.32, 1), width 0.35s cubic-bezier(0.23, 1, 0.32, 1)',
                 zIndex: 0,
@@ -78,13 +94,12 @@ const Navbar = () => {
                   href={link.href}
                   className={active === link.href.replace('#', '') ? 'nav-link active' : 'nav-link'}
                   style={{
-                    color: active === link.href.replace('#', '') ? '#fff' : '#fff',
+                    color: '#fff',
                     fontWeight: active === link.href.replace('#', '') ? 800 : 600,
-                    fontSize: '1.08rem',
-                    letterSpacing: '-0.5px',
-                    borderBottom: active === link.href.replace('#', '') ? '2.5px solid #a084ee' : '2.5px solid transparent',
-                    transition: 'color 0.2s, border-bottom 0.2s',
-                    padding: '0.2rem 0',
+                    fontSize: '0.98rem',
+                    letterSpacing: '-0.3px',
+                    transition: 'color 0.2s',
+                    padding: '0.25rem 0',
                     position: 'relative',
                   }}
                 >

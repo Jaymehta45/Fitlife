@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../index.css';
 
-const testimonials = Array.from({ length: 300 }, (_, i) => ({
+const testimonials = Array.from({ length: 12 }, (_, i) => ({
   name: `Client ${i + 1}`,
   text: `This is testimonial #${i + 1}. Shriraj's coaching made a real difference for me!`,
   rating: 5,
@@ -34,7 +34,6 @@ const Testimonials = () => {
   const [isInstant, setIsInstant] = useState(false);
   const timeoutRef = useRef(null);
   const trackRef = useRef(null);
-  const total = testimonials.length;
   const cards = getClonedTestimonials(testimonials);
 
   // Pause only when hovering over a card
@@ -55,7 +54,8 @@ const Testimonials = () => {
         setIsTransitioning(false);
         setTimeout(() => {
           setIsInstant(true);
-          setIndex(cards.length - 6);
+          // Jump to last real card (N + 2)
+          setIndex(cards.length - 4);
         }, 10);
       }
     };

@@ -4,7 +4,7 @@ import ProfileCard from './ProfileCard';
 
 const About = () => {
   return (
-    <section id="about" style={{ background: 'linear-gradient(135deg, #232946 60%, #181c2b 100%)', borderRadius: '2rem', marginBottom: '2rem' }}>
+    <section id="about" style={{ background: 'linear-gradient(135deg, #232946 60%, #181c2b 100%)', borderRadius: '2rem', marginBottom: '2rem', marginTop: '96px', scrollMarginTop: '120px' }}>
       <div className="container animate-fadeInUp" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '2.5rem', padding: '3rem 0', justifyContent: 'center' }}>
         {/* Profile Card with Spotlight/Tilt Animation */}
         <div style={{ flex: '0 0 320px', minWidth: 260 }}>
