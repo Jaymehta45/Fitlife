@@ -16,7 +16,7 @@ const TRANSITION_DURATION = 600;
 const AUTO_ROTATE_INTERVAL = 2500;
 
 const Star = () => (
-  <span style={{ color: '#a084ee', fontSize: '1.1rem', marginRight: 2 }}>★</span>
+  <span style={{ color: '#000000', fontSize: '1.1rem', marginRight: 2 }}>★</span>
 );
 
 const getClonedTestimonials = (arr) => [...arr, ...arr];
@@ -75,20 +75,19 @@ const Testimonials = () => {
   return (
     <section
       id="testimonials"
-      /* ⚙️ Full-Width Section Fix: makes the background and carousel fill the entire viewport horizontally */
+      /* Full-Width Section: white background */
       style={{
-        width: '100vw',                             // full viewport width
-        marginLeft: 'calc(50% - 50vw)',             // pushes section to align exactly with screen edges
-        background: 'linear-gradient(135deg, #232946 60%, #181c2b 100%)',
+        width: '100vw',
+        marginLeft: 'calc(50% - 50vw)',
+        background: '#ffffff',
         minHeight: '75vh',
-        padding: '4rem clamp(2rem, 6vw, 8rem)',     // responsive left/right padding
+        padding: '4rem clamp(2rem, 6vw, 8rem)',
         boxSizing: 'border-box',
         scrollMarginTop: '120px',
       }}
     >
       {/* ⚙️ No fixed-width container here — removed maxWidth limitation so carousel can stretch end-to-end */}
       <div
-        className="animate-fadeInUp"
         style={{
           width: '100%',
           margin: '0 auto',
@@ -99,11 +98,12 @@ const Testimonials = () => {
         }}
       >
         <h2
+          className="animate-stagger-1"
           style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
             fontWeight: 800,
             marginBottom: '2.5rem',
-            color: '#a084ee',
+            color: '#000000',
             textAlign: 'center',
             letterSpacing: '-1px',
           }}
@@ -144,8 +144,8 @@ const Testimonials = () => {
               const pop = isCenter || isHovered;
               const popScale = pop ? 1.05 : 0.98;
               const popShadow = pop
-                ? '0 6px 20px 0 #a084ee55, 0 0 0 2px #a084ee22'
-                : '0 1px 6px 0 rgba(160,132,238,0.08)';
+                ? '0 6px 20px 0 rgba(0,0,0,0.12), 0 0 0 2px #00000011'
+                : '0 1px 6px 0 rgba(0,0,0,0.06)';
               const popZ = pop ? 2 : 1;
 
               return (
@@ -155,8 +155,9 @@ const Testimonials = () => {
                     minWidth: CARD_WIDTH,
                     maxWidth: CARD_WIDTH,
                     padding: '2.8rem 1.5rem',
-                    background: '#20233a',
+                    background: '#ffffff',
                     borderRadius: '1.5rem',
+                    border: '1px solid #000000',
                     textAlign: 'center',
                     boxShadow: popShadow,
                     transition: 'all 0.4s ease',
@@ -174,9 +175,9 @@ const Testimonials = () => {
                 >
                   <div
                     style={{
-                      fontWeight: 700,
-                      fontSize: '1.1rem',
-                      color: '#a084ee',
+                      fontWeight: 900,
+                      fontSize: '1.2rem',
+                      color: '#000000',
                       marginBottom: 12,
                     }}
                   >
@@ -185,7 +186,7 @@ const Testimonials = () => {
                   <div
                     style={{
                       fontStyle: 'italic',
-                      color: '#c7c9d9',
+                      color: '#000000',
                       marginBottom: 12,
                       whiteSpace: 'normal',
                       wordWrap: 'break-word',
@@ -214,7 +215,7 @@ const Testimonials = () => {
               transform: 'translateY(-50%)',
               background: 'none',
               border: 'none',
-              color: '#a084ee',
+              color: '#000000',
               fontSize: 36,
               cursor: 'pointer',
               opacity: 0.8,
@@ -232,7 +233,7 @@ const Testimonials = () => {
               transform: 'translateY(-50%)',
               background: 'none',
               border: 'none',
-              color: '#a084ee',
+              color: '#000000',
               fontSize: 36,
               cursor: 'pointer',
               opacity: 0.8,

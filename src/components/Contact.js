@@ -8,7 +8,7 @@ const Contact = () => (
     style={{
       width: '100vw',                            // fill full viewport width
       marginLeft: 'calc(50% - 50vw)',            // align perfectly with screen edges
-      background: 'linear-gradient(135deg, #181c2b 60%, #232946 100%)',
+      background: '#ffffff',
       minHeight: '85vh',
       padding: '4rem clamp(2rem, 6vw, 8rem)',    // responsive left/right spacing
       boxSizing: 'border-box',
@@ -17,7 +17,6 @@ const Contact = () => (
   >
     {/* ⚙️ Removed width constraint — now content sits centered inside full-bleed background */}
     <div
-      className="animate-fadeInUp"
       style={{
         width: '100%',
         maxWidth: 1000,                          // still caps content for readability
@@ -26,11 +25,12 @@ const Contact = () => (
       }}
     >
       <h2
+        className="animate-stagger-1"
         style={{
           fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
           fontWeight: 800,
           marginBottom: '2.5rem',
-          color: '#fff',
+          color: '#000000',
           textAlign: 'center',
         }}
       >
@@ -39,16 +39,17 @@ const Contact = () => (
 
       {/* ⚙️ Centered form, expands to full width inside padded section */}
       <form
+        className="animate-stagger-2"
         style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '1.5rem',
           marginBottom: '2.5rem',
-          background: '#20233a88',
+          background: '#ffffff',
           padding: '2rem',
           borderRadius: '1.5rem',
-          backdropFilter: 'blur(8px)',
-          boxShadow: '0 4px 32px 0 #a084ee22',
+          border: '1px solid #00000022',
+          boxShadow: '0 4px 20px 0 rgba(0,0,0,0.06)',
         }}
       >
         <input
@@ -57,9 +58,9 @@ const Contact = () => (
           style={{
             padding: '1rem',
             borderRadius: '0.75rem',
-            border: 'none',
-            background: '#232946',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#000000',
+            border: '1px solid #000000',
             fontSize: '1rem',
           }}
         />
@@ -69,9 +70,9 @@ const Contact = () => (
           style={{
             padding: '1rem',
             borderRadius: '0.75rem',
-            border: 'none',
-            background: '#232946',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#000000',
+            border: '1px solid #000000',
             fontSize: '1rem',
           }}
         />
@@ -81,9 +82,9 @@ const Contact = () => (
           style={{
             padding: '1rem',
             borderRadius: '0.75rem',
-            border: 'none',
-            background: '#232946',
-            color: '#fff',
+            background: '#ffffff',
+            color: '#000000',
+            border: '1px solid #000000',
             fontSize: '1rem',
             resize: 'vertical',
           }}
@@ -103,9 +104,10 @@ const Contact = () => (
 
       {/* ⚙️ Contact info centered and spaced */}
       <div
+        className="animate-stagger-3"
         style={{
           textAlign: 'center',
-          color: '#a084ee',
+          color: '#000000',
           fontSize: '1.1rem',
           lineHeight: 1.6,
         }}
@@ -114,10 +116,7 @@ const Contact = () => (
           Email:{' '}
           <a
             href="mailto:shriraj@fitinfluence.com"
-            style={{
-              color: '#a084ee',
-              textDecoration: 'underline',
-            }}
+            style={{ color: '#000000', textDecoration: 'underline' }}
           >
             shriraj@fitinfluence.com
           </a>
@@ -128,10 +127,7 @@ const Contact = () => (
             href="https://instagram.com/fitinfluence"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              color: '#a084ee',
-              textDecoration: 'underline',
-            }}
+            style={{ color: '#000000', textDecoration: 'underline' }}
           >
             @fitinfluence
           </a>

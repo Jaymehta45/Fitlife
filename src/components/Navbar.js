@@ -51,24 +51,24 @@ const Navbar = () => {
       className="navbar"
       style={{
         position: 'fixed',
-        top: 16,
+        top: 20,
         left: '50%',
         transform: 'translateX(-50%)',
         zIndex: 100,
-        background: 'rgba(24,26,34,0.55)',
-        backdropFilter: 'blur(12px)',
-        WebkitBackdropFilter: 'blur(12px)',
-        border: '1px solid rgba(160,132,238,0.25)',
-        boxShadow: '0 8px 32px rgba(0,0,0,0.25), 0 0 0 1px rgba(160,132,238,0.15) inset',
+        background: '#ffffff',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        border: '2px solid #000000',
+        boxShadow: '0 10px 30px rgba(0,0,0,0.12)',
         borderRadius: 9999,
-        padding: '10px 16px',
+        padding: '14px 22px',
         pointerEvents: 'none'
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', pointerEvents: 'auto' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', pointerEvents: 'auto' }}>
         {/* logo removed */}
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-          <ul ref={navRef} style={{ display: 'flex', gap: '1.6rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative', alignItems: 'center' }}>
+          <ul ref={navRef} style={{ display: 'flex', gap: '2rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative', alignItems: 'center' }}>
             {/* Gooey blob */}
             <span
               className="gooey-blob"
@@ -77,36 +77,54 @@ const Navbar = () => {
                 top: '50%',
                 left: blobStyle.left,
                 width: blobStyle.width,
-                height: 32,
+                height: 44,
                 background: 'linear-gradient(90deg, #181a22 0%, #232946 100%)',
-                borderRadius: 16,
+                borderRadius: 22,
                 filter: 'blur(10px) saturate(2)',
-                opacity: 0.4,
+                opacity: 0,
                 transform: 'translateY(-50%)',
                 transition: 'left 0.35s cubic-bezier(0.23, 1, 0.32, 1), width 0.35s cubic-bezier(0.23, 1, 0.32, 1)',
                 zIndex: 0,
                 pointerEvents: 'none',
               }}
             />
-            {navLinks.map(link => (
-              <li key={link.href} style={{ position: 'relative', zIndex: 1 }}>
-                <a
-                  href={link.href}
-                  className={active === link.href.replace('#', '') ? 'nav-link active' : 'nav-link'}
-                  style={{
-                    color: '#fff',
-                    fontWeight: active === link.href.replace('#', '') ? 800 : 600,
-                    fontSize: '0.98rem',
-                    letterSpacing: '-0.3px',
-                    transition: 'color 0.2s',
-                    padding: '0.25rem 0',
-                    position: 'relative',
-                  }}
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
+            {navLinks.map(link => {
+              const isActive = active === link.href.replace('#', '');
+              return (
+                <li key={link.href} style={{ position: 'relative', zIndex: 1 }}>
+                  <a
+                    href={link.href}
+                    className={isActive ? 'nav-link active' : 'nav-link'}
+                    style={{
+                      color: '#000000',
+                      fontWeight: 900,
+                      fontSize: '1.15rem',
+                      letterSpacing: '-0.5px',
+                      transition: 'color 0.2s',
+                      padding: '0.35rem 0.1rem',
+                      position: 'relative',
+                    }}
+                  >
+                    {link.label}
+                    {/* Animated underline */}
+                    <span
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        right: 0,
+                        bottom: -6,
+                        height: 3,
+                        background: '#000000',
+                        borderRadius: 2,
+                        transform: `scaleX(${isActive ? 1 : 0})`,
+                        transformOrigin: isActive ? 'left center' : 'right center',
+                        transition: 'transform 300ms cubic-bezier(0.23, 1, 0.32, 1)',
+                      }}
+                    />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

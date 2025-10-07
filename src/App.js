@@ -8,6 +8,14 @@ import Footer from './components/Footer';
 
 function App() {
   useEffect(() => {
+    // Toggle invert mode by adding a class to the html element
+    document.documentElement.classList.add('invert-colors');
+    return () => {
+      document.documentElement.classList.remove('invert-colors');
+    };
+  }, []);
+
+  useEffect(() => {
     const sections = document.querySelectorAll('section');
     const observer = new window.IntersectionObserver(
       entries => {

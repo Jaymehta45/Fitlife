@@ -43,7 +43,7 @@ const Programs = () => {
       style={{
         width: '100vw',
         marginLeft: 'calc(50% - 50vw)',
-        background: 'linear-gradient(135deg, #181c2b 60%, #232946 100%)',
+        background: '#ffffff',
         minHeight: '85vh',
         padding: '4rem clamp(2rem, 6vw, 8rem)',
         boxSizing: 'border-box',
@@ -51,21 +51,21 @@ const Programs = () => {
       }}
     >
       {/* Inner container remains centered with a wide max width */}
-      <div
-        className="animate-fadeInUp"
-        style={{
-          width: '100%',
-          maxWidth: 1400,
-          margin: '0 auto',
-          boxSizing: 'border-box',
-        }}
-      >
+        <div
+          style={{
+            width: '100%',
+            maxWidth: 1400,
+            margin: '0 auto',
+            boxSizing: 'border-box',
+          }}
+        >
         <h2
+          className="animate-stagger-1"
           style={{
             fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
             fontWeight: 800,
             marginBottom: '2.5rem',
-            color: '#fff',
+            color: '#000000',
             textAlign: 'center',
           }}
         >
@@ -85,7 +85,7 @@ const Programs = () => {
             <div
               key={p.title}
               ref={(el) => (cardsRef.current[i] = el)}
-              className="program-card-spotlight"
+              className={`program-card-spotlight animate-stagger-${i + 2}`}
               onMouseMove={(e) => handleMouseMove(e, i)}
               style={{
                 minHeight: 550, // adjust card height
@@ -94,18 +94,18 @@ const Programs = () => {
                 justifyContent: 'space-between',
                 borderRadius: '1.5rem',
                 padding: '2rem',
-                background: '#1a1c2f',
+                background: '#ffffff',
+                border: '1px solid #000000',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
               }}
             >
               <div
                 style={{
-                  fontSize: '2.5rem',
+                  fontSize: '2.8rem',
                   marginBottom: '1.2rem',
-                  background: p.color,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  fontWeight: 700,
+                  color: '#000000',
+                  fontWeight: 900,
+                  lineHeight: 1,
                 }}
               >
                 {p.icon}
@@ -114,7 +114,7 @@ const Programs = () => {
                 style={{
                   fontWeight: 700,
                   fontSize: '1.35rem',
-                  color: '#fff',
+                  color: '#000000',
                   marginBottom: '0.7rem',
                 }}
               >
@@ -122,7 +122,7 @@ const Programs = () => {
               </div>
               <div
                 style={{
-                  color: '#c7c9d9',
+                  color: '#000000',
                   fontSize: '1.05rem',
                   marginBottom: '1.2rem',
                 }}
