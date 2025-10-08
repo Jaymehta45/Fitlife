@@ -34,20 +34,9 @@ import Checkout from './pages/Checkout';             // Checkout placeholder
 
 function App() {
   // ==========================================================================
-  // GLOBAL THEME SETUP
+  // THEME SETUP
   // ==========================================================================
-  // This applies site-wide color inversion (black becomes white, white becomes black)
-  // TO DISABLE: Remove this useEffect or change 'invert-colors' to a different class
-  // TO MODIFY: Change the class name in both add() and remove() calls
-  useEffect(() => {
-    // Apply color inversion to entire site
-    document.documentElement.classList.add('invert-colors');
-    
-    // Cleanup: remove inversion when component unmounts
-    return () => {
-      document.documentElement.classList.remove('invert-colors');
-    };
-  }, []);
+  // NOTE: Global inversion removed - each component now has individual black and white styling
 
   // ==========================================================================
   // PAGE RELOAD HANDLING
@@ -63,7 +52,7 @@ function App() {
   }, []);
 
   // ==========================================================================
-  // SCROLL-TRIGGERED ANIMATIONS
+  // SCROLL-TRIGGERED ANIMATIONS (OPTIMIZED)
   // ==========================================================================
   // This sets up smooth animations when sections come into view
   // TO MODIFY ANIMATIONS: Change threshold value (0.15 = 15% visible)
@@ -85,7 +74,10 @@ function App() {
           }
         });
       },
-      { threshold: 0.15 } // Trigger when 15% of section is visible
+      { 
+        threshold: 0.15, // Trigger when 15% of section is visible
+        rootMargin: '0px 0px -50px 0px' // Start animation slightly before section is fully visible
+      }
     );
     
     // Set up each section for animation

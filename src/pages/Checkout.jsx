@@ -52,41 +52,59 @@ const Checkout = () => {
       <div
         style={{
           width: '100%',
-          maxWidth: 800,
+          maxWidth: '1200px',
           margin: '0 auto',
           textAlign: 'center',
           boxSizing: 'border-box',
+          padding: '0 2rem'
         }}
       >
         <h1
           style={{
             fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
             fontWeight: 900,
-            letterSpacing: '1px',
+            letterSpacing: '2px',
             textTransform: 'uppercase',
             color: '#000000',
-            backgroundColor: '#fff',
-            padding: '0.4em 0.8em',
-            display: 'inline-block',
-            borderRadius: '0.3rem',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-            border: '2px solid #000',
+            fontFamily: 'Arial Black, Arial, sans-serif',
             marginBottom: '2rem',
-            lineHeight: 1.05,
+            lineHeight: 1.1,
+            textAlign: 'center',
+            width: '100%'
           }}
         >
-          Checkout for {slug}
+          CHECKOUT
         </h1>
+        
+        <div
+          style={{
+            fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+            color: '#000000',
+            fontFamily: 'Arial Black, Arial, sans-serif',
+            fontWeight: 700,
+            letterSpacing: '1px',
+            textTransform: 'uppercase',
+            marginBottom: '3rem',
+            textAlign: 'center'
+          }}
+        >
+          {slug?.replace('-', ' ').toUpperCase()}
+        </div>
         
         <p
           style={{
-            fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+            fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
             color: '#000000',
-            lineHeight: 1.6,
-            marginBottom: '2rem'
+            fontFamily: 'Arial, sans-serif',
+            fontWeight: 600,
+            lineHeight: 1.4,
+            marginBottom: '3rem',
+            textAlign: 'center',
+            maxWidth: '900px',
+            margin: '0 auto 3rem auto'
           }}
         >
-          Auth gating to be implemented. This is a placeholder for the checkout process.
+          Payment integration coming soon. This is a placeholder for the checkout process.
         </p>
 
         <div
@@ -101,25 +119,40 @@ const Checkout = () => {
             className="btn"
             onClick={() => navigate(`/programs/${slug}`)}
             style={{
-              fontSize: '1.1rem',
-              padding: '1rem 2rem'
+              fontSize: '1.2rem',
+              fontWeight: 700,
+              fontFamily: 'Arial Black, Arial, sans-serif',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              padding: '1.2rem 2.5rem',
+              background: '#000000',
+              color: '#ffffff',
+              border: '3px solid #000000',
+              borderRadius: '0',
+              transition: 'all 0.3s ease'
             }}
           >
-            Back to Program Details
+            BACK TO PROGRAM
           </button>
           
           <button
             className="btn"
             onClick={() => navigate('/')}
             style={{
-              fontSize: '1.1rem',
-              padding: '1rem 2rem',
+              fontSize: '1.2rem',
+              fontWeight: 700,
+              fontFamily: 'Arial Black, Arial, sans-serif',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              padding: '1.2rem 2.5rem',
               background: '#ffffff',
               color: '#000000',
-              border: '2px solid #000000'
+              border: '3px solid #000000',
+              borderRadius: '0',
+              transition: 'all 0.3s ease'
             }}
           >
-            Back to Home
+            BACK TO HOME
           </button>
         </div>
       </div>

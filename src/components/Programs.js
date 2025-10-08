@@ -20,7 +20,7 @@
  * - Modify the routing behavior in the Link components
  */
 
-import React, { useRef } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import '../index.css';
 
@@ -37,6 +37,7 @@ const programs = [
     color: 'linear-gradient(90deg, #6d83f2 0%, #a084ee 100%)',   // Gradient (unused in current theme)
     icon: '💪',                                                    // Emoji icon
     slug: 'strength-training',                                    // URL slug for routing
+    backgroundImage: 'https://supremepersonaltraining.com/wp-content/uploads/2023/07/weighs-dumbbell-1200x800.jpg', // Background image
   },
   {
     title: 'Cardio Fitness',                                      // Program name
@@ -44,6 +45,7 @@ const programs = [
     color: 'linear-gradient(90deg, #a084ee 0%, #6d83f2 100%)',   // Gradient (unused in current theme)
     icon: '🏃‍♂️',                                                  // Emoji icon
     slug: 'cardio-fitness',                                      // URL slug for routing
+    backgroundImage: 'https://media.istockphoto.com/id/1498050355/photo/start-and-finish-point-of-a-race-track-in-a-stadium.jpg?s=612x612&w=0&k=20&c=931T8Gsyixp3pGTZMa5LsyXQpYvCWisWyeSj46hlkCE=', // Background image
   },
   {
     title: 'Weight Loss',                                         // Program name
@@ -51,33 +53,26 @@ const programs = [
     color: 'linear-gradient(90deg, #232946 0%, #a084ee 100%)',   // Gradient (unused in current theme)
     icon: '🔥',                                                    // Emoji icon
     slug: 'weight-loss',                                          // URL slug for routing
+    backgroundImage: 'https://images.stockcake.com/public/6/a/9/6a92ba1b-64d2-4117-a57e-8393e5c89024_medium/dewy-fruit-contrast-stockcake.jpg', // Background image
   },
 ];
 
-const Programs = () => {
+const Programs = React.memo(() => {
   // ==========================================================================
   // STATE AND REFS
   // ==========================================================================
   const cardsRef = useRef([]); // Array of refs for each program card
+  // ==========================================================================
+  // FIXED OVERLAY OPACITY
+  // ==========================================================================
+  // Fixed overlay opacity for background images (0 = fully transparent, 1 = fully opaque)
+  // TO CHANGE: Modify this value between 0 and 1
+  const overlayOpacity = 0.4; // 85% opacity - good balance between background visibility and text readability
 
   // ==========================================================================
-  // MOUSE TRACKING FOR SPOTLIGHT EFFECT
+  // SPOTLIGHT EFFECT REMOVED
   // ==========================================================================
-  // This creates a spotlight effect that follows the mouse cursor
-  // TO DISABLE: Remove this function and the onMouseMove prop from cards
-  const handleMouseMove = (e, index) => {
-    const card = cardsRef.current[index];
-    if (card) {
-      // Calculate mouse position relative to the card
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      // Set CSS custom properties for the spotlight effect
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    }
-  };
+  // Spotlight effect has been removed for cleaner hover interactions
 
   return (
     <section
@@ -88,7 +83,7 @@ const Programs = () => {
         // ==========================================================================
         width: '100vw',                    // Full viewport width
         marginLeft: 'calc(50% - 50vw)',    // Full-bleed background
-        background: '#ffffff',             // White background
+        background: '#000000',             // Black background
         minHeight: '85vh',                 // Minimum height (85% of viewport)
         padding: '4rem clamp(2rem, 6vw, 8rem)', // Responsive padding
         boxSizing: 'border-box',          // Include padding in width calculation
@@ -106,19 +101,20 @@ const Programs = () => {
           boxSizing: 'border-box',       // Include padding in width calculation
         }}
       >
-        {/* SECTION TITLE */}
-        <h2
-          className="animate-stagger-1"
-          style={{
-            fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', // Responsive font size
-            fontWeight: 800,                          // Bold weight
-            marginBottom: '2.5rem',                   // Bottom margin
-            color: '#000000',                         // Black text
-            textAlign: 'center',                     // Center alignment
-          }}
-        >
-          <span className="text-gradient">Our Programs</span>
-        </h2>
+            {/* SECTION TITLE */}
+            <h2
+              className="animate-stagger-1"
+              style={{
+                fontSize: 'clamp(1.8rem, 4vw, 2.6rem)', // Responsive font size
+                fontWeight: 800,                          // Bold weight
+                marginBottom: '2.5rem',                   // Bottom margin
+                color: '#000000',                         // Black text
+                textAlign: 'center',                     // Center alignment
+              }}
+            >
+              <span className="text-gradient">Our Programs</span>
+            </h2>
+
 
         {/* ==========================================================================
             PROGRAMS GRID
@@ -137,8 +133,7 @@ const Programs = () => {
             <div
               key={p.title}
               ref={(el) => (cardsRef.current[i] = el)}
-              className={`program-card-spotlight animate-stagger-${i + 2}`}
-              onMouseMove={(e) => handleMouseMove(e, i)}
+              className={`program-card-hover animate-stagger-${i + 2}`}
               style={{
                 // CARD LAYOUT
                 minHeight: 550,                    // Minimum card height
@@ -149,46 +144,60 @@ const Programs = () => {
                 // CARD STYLING
                 borderRadius: '1.5rem',           // Rounded corners
                 padding: '2rem',                  // Internal spacing
-                background: '#ffffff',             // White background
-                border: '1px solid #000000',      // Black border
-                boxShadow: '0 4px 12px rgba(0,0,0,0.06)' // Subtle shadow
+                background: `url(${p.backgroundImage})`, // Background image without overlay
+                backgroundSize: 'cover',          // Cover entire card
+                backgroundPosition: 'center',     // Center the background image
+                backgroundRepeat: 'no-repeat',    // Don't repeat the image
+                border: '1px solid #ffffff',      // White border
+                boxShadow: '0 4px 12px rgba(0,0,0,0.06)', // Subtle shadow
+                position: 'relative',             // For overlay positioning
+                overflow: 'hidden',               // Hide overflow for clean edges
+                
+                // HOVER EFFECTS
+                transition: 'all 0.3s ease',     // Smooth transitions
+                cursor: 'pointer',                // Pointer cursor
+                transform: 'scale(1)',            // Default scale
+                ':hover': {
+                  transform: 'scale(1.05)',       // Scale up on hover
+                  boxShadow: '0 8px 25px rgba(0,0,0,0.15)', // Enhanced shadow
+                }
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = 'scale(1.05)';
+                e.target.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = 'scale(1)';
+                e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.06)';
               }}
             >
-              {/* PROGRAM ICON */}
-              <div
-                style={{
-                  fontSize: '2.8rem',              // Large emoji
-                  marginBottom: '1.2rem',          // Bottom margin
-                  color: '#000000',               // Black color
-                  fontWeight: 900,                // Bold weight
-                  lineHeight: 1,                  // Tight line height
-                }}
-              >
-                {p.icon}
-              </div>
+              {/* PROGRAM ICON - REMOVED */}
               
-              {/* PROGRAM TITLE */}
-              <div
-                style={{
-                  fontWeight: 700,                // Bold weight
-                  fontSize: '1.35rem',           // Large text
-                  color: '#000000',              // Black text
-                  marginBottom: '0.7rem',        // Bottom margin
-                }}
-              >
-                {p.title}
-              </div>
+               {/* PROGRAM TITLE */}
+               <div
+                 style={{
+                   fontWeight: 900,                // Extra bold weight
+                   fontSize: '1.4rem',            // Smaller text
+                   color: '#ffffff',              // White text
+                   marginBottom: '0.7rem',        // Bottom margin
+                   backgroundColor: 'rgba(0,0,0,0.85)', // More opaque black background
+                   padding: '1rem 2rem',          // More generous padding
+                   borderRadius: '0.8rem',        // More rounded corners
+                   display: 'inline-block',       // Inline block for box effect
+                   textAlign: 'center',           // Center the text
+                   border: '2px solid #ffffff',   // White border
+                   boxShadow: '0 4px 8px rgba(0,0,0,0.3)', // Subtle shadow
+                   backdropFilter: 'blur(10px)',  // Glass effect
+                   WebkitBackdropFilter: 'blur(10px)', // Safari support
+                   letterSpacing: '1px',          // Letter spacing for impact
+                   textTransform: 'uppercase',     // All caps for emphasis
+                 }}
+               >
+                 {p.title}
+               </div>
               
-              {/* PROGRAM DESCRIPTION */}
-              <div
-                style={{
-                  color: '#000000',              // Black text
-                  fontSize: '1.05rem',          // Medium text
-                  marginBottom: '1.2rem',       // Bottom margin
-                }}
-              >
-                {p.desc}
-              </div>
+               {/* PROGRAM DESCRIPTION - REMOVED */}
+              
               {/* ==========================================================================
                   ACTION BUTTONS
                   ========================================================================== */}
@@ -209,7 +218,10 @@ const Programs = () => {
                     flex: '1 1 120px',            // Flexible width
                     minWidth: '120px',            // Minimum width
                     textAlign: 'center',          // Center text
-                    textDecoration: 'none'        // Remove underline
+                    textDecoration: 'none',       // Remove underline
+                    background: '#000000',        // Black background
+                    color: '#ffffff',             // White text
+                    border: '2px solid #ffffff'  // White border
                   }}
                 >
                   View Details
@@ -227,9 +239,9 @@ const Programs = () => {
                     minWidth: '120px',            // Minimum width
                     textAlign: 'center',          // Center text
                     textDecoration: 'none',       // Remove underline
-                    background: '#ffffff',        // White background
-                    color: '#000000',             // Black text
-                    border: '2px solid #000000'  // Black border
+                    background: '#000000',        // Black background
+                    color: '#ffffff',             // White text
+                    border: '2px solid #ffffff'  // White border
                   }}
                 >
                   Join Now
@@ -241,6 +253,6 @@ const Programs = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Programs;

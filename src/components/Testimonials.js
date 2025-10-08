@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import '../index.css';
 
 const testimonials = [
@@ -21,7 +21,7 @@ const Star = () => (
 
 const getClonedTestimonials = (arr) => [...arr, ...arr];
 
-const Testimonials = () => {
+const Testimonials = React.memo(() => {
   const cards = getClonedTestimonials(testimonials);
   const trackRef = useRef(null);
   const timeoutRef = useRef(null);
@@ -44,11 +44,16 @@ const Testimonials = () => {
     setIndex((prev) => prev - 1);
   };
 
-  // Auto-rotation
+  // Auto-rotation (optimized with useCallback)
+  const handleNextCallback = useCallback(() => {
+    setIsTransitioning(true);
+    setIndex((prev) => prev + 1);
+  }, []);
+
   useEffect(() => {
-    if (!isPaused) timeoutRef.current = setTimeout(handleNext, AUTO_ROTATE_INTERVAL);
+    if (!isPaused) timeoutRef.current = setTimeout(handleNextCallback, AUTO_ROTATE_INTERVAL);
     return () => clearTimeout(timeoutRef.current);
-  }, [index, isPaused]);
+  }, [index, isPaused, handleNextCallback]);
 
   // Infinite loop logic
   useEffect(() => {
@@ -79,7 +84,7 @@ const Testimonials = () => {
       style={{
         width: '100vw',
         marginLeft: 'calc(50% - 50vw)',
-        background: '#ffffff',
+        background: '#000000',
         minHeight: '75vh',
         padding: '4rem clamp(2rem, 6vw, 8rem)',
         boxSizing: 'border-box',
@@ -103,7 +108,7 @@ const Testimonials = () => {
             fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
             fontWeight: 800,
             marginBottom: '2.5rem',
-            color: '#000000',
+            color: '#ffffff',
             textAlign: 'center',
             letterSpacing: '-1px',
           }}
@@ -155,9 +160,9 @@ const Testimonials = () => {
                     minWidth: CARD_WIDTH,
                     maxWidth: CARD_WIDTH,
                     padding: '2.8rem 1.5rem',
-                    background: '#ffffff',
+                    background: '#000000',
                     borderRadius: '1.5rem',
-                    border: '1px solid #000000',
+                    border: '1px solid #ffffff',
                     textAlign: 'center',
                     boxShadow: popShadow,
                     transition: 'all 0.4s ease',
@@ -177,7 +182,7 @@ const Testimonials = () => {
                     style={{
                       fontWeight: 900,
                       fontSize: '1.2rem',
-                      color: '#000000',
+                      color: '#ffffff',
                       marginBottom: 12,
                     }}
                   >
@@ -186,7 +191,7 @@ const Testimonials = () => {
                   <div
                     style={{
                       fontStyle: 'italic',
-                      color: '#000000',
+                      color: '#ffffff',
                       marginBottom: 12,
                       whiteSpace: 'normal',
                       wordWrap: 'break-word',
@@ -215,7 +220,7 @@ const Testimonials = () => {
               transform: 'translateY(-50%)',
               background: 'none',
               border: 'none',
-              color: '#000000',
+              color: '#ffffff',
               fontSize: 36,
               cursor: 'pointer',
               opacity: 0.8,
@@ -233,7 +238,7 @@ const Testimonials = () => {
               transform: 'translateY(-50%)',
               background: 'none',
               border: 'none',
-              color: '#000000',
+              color: '#ffffff',
               fontSize: 36,
               cursor: 'pointer',
               opacity: 0.8,
@@ -246,6 +251,6 @@ const Testimonials = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Testimonials;

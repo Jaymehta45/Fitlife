@@ -37,7 +37,7 @@ const navLinks = [
   { label: 'Contact', href: '/', sectionId: 'contact' },   // Points to Contact section
 ];
 
-const Navbar = () => {
+const Navbar = React.memo(() => {
   // ==========================================================================
   // STATE MANAGEMENT
   // ==========================================================================
@@ -46,6 +46,25 @@ const Navbar = () => {
   const navRef = useRef();                          // Reference to navigation element
   const location = useLocation();                   // Current page location
   const navigate = useNavigate();                   // Navigation function
+
+  // ==========================================================================
+  // PAGE-BASED ACTIVE STATE DETECTION
+  // ==========================================================================
+  // Determine which nav item should be active based on current page
+  const getActiveSection = () => {
+    const pathname = location.pathname;
+    
+    // Handle different page routes
+    if (pathname === '/') {
+      return active; // Use scroll-based active state for home page
+    } else if (pathname.startsWith('/programs/')) {
+      return 'programs'; // Highlight Programs when on program details page
+    } else if (pathname.startsWith('/checkout/')) {
+      return 'programs'; // Highlight Programs when on checkout page
+    }
+    
+    return 'about'; // Default fallback
+  };
 
   // ==========================================================================
   // SCROLL-BASED ACTIVE SECTION DETECTION
@@ -81,10 +100,22 @@ const Navbar = () => {
       setActive(current);
     };
     
-    // Set up scroll listener
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Throttled scroll handler for better performance
+    let ticking = false;
+    const throttledScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    // Set up scroll listener with throttling
+    window.addEventListener('scroll', throttledScroll, { passive: true });
     handleScroll(); // Check initial state
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', throttledScroll);
   }, [location.pathname]);
 
   // ==========================================================================
@@ -143,23 +174,23 @@ const Navbar = () => {
         zIndex: 100,                 // Above other content
         
         // VISUAL STYLING
-        background: '#ffffff',       // White background
+        background: '#000000',       // Black background
         backdropFilter: 'blur(10px)', // Glass effect
         WebkitBackdropFilter: 'blur(10px)', // Safari support
-        border: '2px solid #000000', // Black border
-        boxShadow: '0 10px 30px rgba(0,0,0,0.12)', // Subtle shadow
+        border: '2px solid #ffffff', // White border
+        boxShadow: '0 10px 30px rgba(255,255,255,0.12)', // Subtle shadow
         borderRadius: 9999,          // Pill shape
-        padding: '14px 22px',        // Internal spacing
+        padding: '10px 16px',        // Reduced internal spacing
         
         // INTERACTION
         pointerEvents: 'none'        // Allow clicks to pass through to children
       }}
     >
       {/* NAVIGATION CONTAINER */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', pointerEvents: 'auto' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', pointerEvents: 'auto' }}>
         {/* NAVIGATION LINKS CONTAINER */}
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
-          <ul ref={navRef} style={{ display: 'flex', gap: '2rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative', alignItems: 'center' }}>
+          <ul ref={navRef} style={{ display: 'flex', gap: '0.6rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative', alignItems: 'center' }}>
             
             {/* ANIMATED BACKGROUND BLOB */}
             {/* This creates the smooth animated background effect */}
@@ -171,7 +202,7 @@ const Navbar = () => {
                 left: blobStyle.left,        // Position from state
                 width: blobStyle.width,     // Width from state
                 height: 44,                  // Fixed height
-                background: 'linear-gradient(90deg, #181a22 0%, #232946 100%)', // Gradient
+                background: 'linear-gradient(90deg, #000000 0%, #333333 100%)', // Black and white gradient
                 borderRadius: 22,           // Rounded corners
                 filter: 'blur(10px) saturate(2)', // Blur and saturation
                 opacity: 0,                 // Hidden by default
@@ -184,26 +215,28 @@ const Navbar = () => {
             {/* NAVIGATION LINKS */}
             {/* Render each navigation link with active state and animations */}
             {navLinks.map(link => {
-              const isActive = active === link.sectionId;
+              const isActive = getActiveSection() === link.sectionId;
               return (
-                <li key={link.href} style={{ position: 'relative', zIndex: 1 }}>
+                <li key={`${link.sectionId}-${link.label}`} style={{ position: 'relative', zIndex: 1 }}>
                   <button
                     onClick={() => handleNavClick(link)}
                     className={isActive ? 'nav-link active' : 'nav-link'}
                     style={{
                       // TEXT STYLING
-                      color: '#000000',           // Black text
+                      color: isActive ? '#000000' : '#ffffff',  // Black text when active, white when inactive
                       fontWeight: 900,           // Bold weight
                       fontSize: '1.15rem',       // Large text
                       letterSpacing: '-0.5px',    // Tighter spacing
-                      transition: 'color 0.2s',  // Smooth color changes
-                      padding: '0.35rem 0.1rem',  // Internal spacing
-                      position: 'relative',       // For absolute positioned underline
+                      transition: 'all 0.3s ease',  // Smooth transitions for all properties
+                      padding: '0.3rem 0.6rem',  // Further reduced padding for tighter spacing
+                      position: 'relative',       // For absolute positioned elements
+                      borderRadius: '25px',       // Rounded background
                       
                       // BUTTON STYLING
-                      background: 'none',        // No background
-                      border: 'none',            // No border
+                      background: isActive ? '#ffffff' : 'transparent',  // White background when active
+                      border: isActive ? '2px solid #ffffff' : '2px solid transparent',  // White border when active
                       cursor: 'pointer',         // Pointer cursor
+                      boxShadow: isActive ? '0 4px 12px rgba(255,255,255,0.3)' : 'none',  // Shadow when active
                     }}
                   >
                     {link.label}
@@ -233,6 +266,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-};
+});
 
 export default Navbar; 

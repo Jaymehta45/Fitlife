@@ -8,7 +8,7 @@ const Contact = () => (
     style={{
       width: '100vw',                            // fill full viewport width
       marginLeft: 'calc(50% - 50vw)',            // align perfectly with screen edges
-      background: '#ffffff',
+      background: '#000000',
       minHeight: '85vh',
       padding: '4rem clamp(2rem, 6vw, 8rem)',    // responsive left/right spacing
       boxSizing: 'border-box',
@@ -30,7 +30,7 @@ const Contact = () => (
           fontSize: 'clamp(1.8rem, 4vw, 2.6rem)',
           fontWeight: 800,
           marginBottom: '2.5rem',
-          color: '#000000',
+          color: '#ffffff',
           textAlign: 'center',
         }}
       >
@@ -45,7 +45,7 @@ const Contact = () => (
           flexDirection: 'column',
           gap: '1.5rem',
           marginBottom: '2.5rem',
-          background: '#ffffff',
+          background: '#000000',
           padding: '2rem',
           borderRadius: '1.5rem',
           border: '1px solid #00000022',
@@ -58,9 +58,9 @@ const Contact = () => (
           style={{
             padding: '1rem',
             borderRadius: '0.75rem',
-            background: '#ffffff',
-            color: '#000000',
-            border: '1px solid #000000',
+            background: '#000000',
+            color: '#ffffff',
+            border: '1px solid #ffffff',
             fontSize: '1rem',
           }}
         />
@@ -70,9 +70,9 @@ const Contact = () => (
           style={{
             padding: '1rem',
             borderRadius: '0.75rem',
-            background: '#ffffff',
-            color: '#000000',
-            border: '1px solid #000000',
+            background: '#000000',
+            color: '#ffffff',
+            border: '1px solid #ffffff',
             fontSize: '1rem',
           }}
         />
@@ -82,9 +82,9 @@ const Contact = () => (
           style={{
             padding: '1rem',
             borderRadius: '0.75rem',
-            background: '#ffffff',
-            color: '#000000',
-            border: '1px solid #000000',
+            background: '#000000',
+            color: '#ffffff',
+            border: '1px solid #ffffff',
             fontSize: '1rem',
             resize: 'vertical',
           }}
@@ -107,7 +107,7 @@ const Contact = () => (
         className="animate-stagger-3"
         style={{
           textAlign: 'center',
-          color: '#000000',
+          color: '#ffffff',
           fontSize: '1.1rem',
           lineHeight: 1.6,
         }}

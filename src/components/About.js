@@ -25,13 +25,11 @@ import '../index.css';
 import ProfileCard from './ProfileCard';
 
 
-
-
 // ==========================================================================
 // BACKGROUND CONFIGURATION
 // ==========================================================================
 // Background image URL - change this to use a different image
-const BG_URL = 'https://www.shutterstock.com/image-photo/within-gym-modern-fitness-equipment-260nw-1471750145.jpg';
+const BG_URL = 'https://gymhero.me/active_storage_proxy/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzI3M2I1Ni0xNjZlLTQ4M2MtYWQ0Yi05MzM2MmY0MTg5M2YiLCJ0cmFuc2Zvcm1hdGlvbnMiOnt9fQ.F9C_qRN_eJINDDpj_L8PfbX9nDeJduRbupE2mNpzP50';
 
 const About = () => {
   // ==========================================================================
@@ -41,7 +39,7 @@ const About = () => {
   // Higher values = more transparent image (more white overlay)
   // Lower values = more visible image (less white overlay)
   // TO MODIFY: Change this value between 0 (invisible) and 1 (completely white)
-  const overlayOpacity = 0.85;
+  const overlayOpacity = 0.4;
 
   return (
     <section
@@ -53,16 +51,16 @@ const About = () => {
         width: '100vw',                    // Full viewport width
         marginLeft: 'calc(50% - 50vw)',    // Full-bleed background
         minHeight: '84vh',                 // Minimum height (84% of viewport)
-        padding: '6rem clamp(1rem, 6vw, 6rem) 8rem', // Responsive padding
+        padding: '4rem clamp(1rem, 6vw, 6rem) 8rem', // Reduced top padding to bring content up
         boxSizing: 'border-box',          // Include padding in width calculation
         scrollMarginTop: '160px',          // Offset for fixed navbar
         borderRadius: '0',                 // No border radius
         
         // ==========================================================================
-        // BACKGROUND IMAGE WITH OVERLAY
+        // BACKGROUND IMAGE WITH REDUCED OPACITY
         // ==========================================================================
-        // Creates a layered background with white overlay on top of image
-        backgroundImage: `linear-gradient(rgba(255,255,255,${overlayOpacity}), rgba(255,255,255,${overlayOpacity})), url(${BG_URL})`,
+        // Background image with subtle overlay to reduce opacity
+        backgroundImage: `linear-gradient(rgba(0,0,0,${overlayOpacity}), rgba(0,0,0,${overlayOpacity})), url(${BG_URL})`,
         backgroundRepeat: 'no-repeat',     // Don't repeat image
         backgroundPosition: 'center center', // Center the image
         backgroundSize: 'cover',           // Cover entire section
@@ -78,9 +76,10 @@ const About = () => {
           // FLEXBOX LAYOUT
           display: 'flex',                    // Horizontal layout
           flexWrap: 'nowrap',                // Don't wrap on smaller screens
-          alignItems: 'center',              // Center vertically
+          alignItems: 'center',          // Align to top instead of center
           gap: '2.5rem',                    // Space between columns
           justifyContent: 'space-between',   // Space out columns
+          paddingTop: '0rem',               // Add top padding to bring content up
           
           // CONTAINER SIZING
           width: '100%',                    // Full width
@@ -133,16 +132,8 @@ const About = () => {
               fontWeight: 900,                         // Extra bold
               letterSpacing: '1px',                   // Letter spacing
               textTransform: 'uppercase',              // All caps
-              color: '#0a0a0a',                        // Dark text
+              color: '#ffffff',                        // White text
               lineHeight: 1.05,                        // Tight line height
-              
-              // BOXED STYLING
-              backgroundColor: '#fff',                 // White background
-              padding: '0.4em 0.8em',                 // Internal padding
-              display: 'inline-block',                 // Inline block for box effect
-              borderRadius: '0.3rem',                  // Rounded corners
-              boxShadow: '0 4px 8px rgba(0,0,0,0.12)', // Drop shadow
-              border: '2px solid #000',               // Black border
               textAlign: 'center',                    // Center text
               marginBottom: '1.2rem',                  // Bottom margin
             }}
@@ -155,99 +146,69 @@ const About = () => {
             style={{
               // TYPOGRAPHY
               fontSize: 'clamp(1.1rem, 2vw, 1.35rem)', // Responsive font size
-              color: '#000000',                         // Black text
+              color: '#ffffff',                         // White text
               fontWeight: 700,                          // Bold weight
               lineHeight: 1.6,                         // Comfortable line height
               
               // LAYOUT
-              marginBottom: '1.5rem',                  // Bottom margin
+              marginBottom: '2rem',                    // Bottom margin
               maxWidth: 920,                          // Maximum width for readability
             }}
           >
-            Shriraj is a certified fitness influencer and coach, dedicated to helping you
-            unlock your best self. With a decade of experience, he blends science,
-            motivation, and real-world results for every client.
+            Certified fitness coach with a decade of experience. Helping you unlock your best self through science, motivation, and real-world results.
           </p>
 
-          {/* ==========================================================================
-              STATISTICS SECTION
-              ========================================================================== */}
-          <div
-            style={{
-              // LAYOUT
-              display: 'flex',                    // Horizontal layout
-              gap: '2.5rem',                     // Space between stats
-              marginTop: '1.5rem',              // Top margin
-              flexWrap: 'wrap',                 // Wrap on smaller screens
-              justifyContent: 'flex-start',     // Align to left
-            }}
-          >
-            {/* STATISTIC 1 - YEARS EXPERIENCE */}
-            <div style={{ textAlign: 'center', minWidth: 120 }}>
-              <div
-                style={{
-                  fontSize: 'clamp(1.6rem, 3.6vw, 2.2rem)', // Large, responsive number
-                  fontWeight: 900,                           // Extra bold
-                  color: '#000000',                          // Black text
-                }}
-              >
-                10+
-              </div>
-              <div
-                style={{
-                  color: '#000000',                          // Black text
-                  fontSize: 'clamp(0.95rem, 1.4vw, 1.05rem)', // Responsive label
-                  fontWeight: 700,                           // Bold label
-                }}
-              >
-                Years Experience
-              </div>
-            </div>
-
-            {/* STATISTIC 2 - CLIENTS TRANSFORMED */}
-            <div style={{ textAlign: 'center', minWidth: 120 }}>
-              <div
-                style={{
-                  fontSize: 'clamp(1.6rem, 3.6vw, 2.2rem)', // Large, responsive number
-                  fontWeight: 900,                           // Extra bold
-                  color: '#000000',                          // Black text
-                }}
-              >
-                1,000+
-              </div>
-              <div
-                style={{
-                  color: '#000000',                          // Black text
-                  fontSize: 'clamp(0.95rem, 1.4vw, 1.05rem)', // Responsive label
-                  fontWeight: 700,                           // Bold label
-                }}
-              >
-                Clients Transformed
-              </div>
-            </div>
-
-            {/* STATISTIC 3 - SUCCESS RATE */}
-            <div style={{ textAlign: 'center', minWidth: 120 }}>
-              <div
-                style={{
-                  fontSize: 'clamp(1.6rem, 3.6vw, 2.2rem)', // Large, responsive number
-                  fontWeight: 900,                           // Extra bold
-                  color: '#000000',                          // Black text
-                }}
-              >
-                95%
-              </div>
-              <div
-                style={{
-                  color: '#000000',                          // Black text
-                  fontSize: 'clamp(0.95rem, 1.4vw, 1.05rem)', // Responsive label
-                  fontWeight: 700,                           // Bold label
-                }}
-              >
-                Success Rate
-              </div>
-            </div>
+          {/* JOIN NOW BUTTON */}
+          <div style={{ 
+            marginBottom: '2rem', 
+            display: 'flex', 
+            justifyContent: 'center',
+            width: '100%'
+          }}>
+            <button
+              onClick={() => window.location.href = '#programs'}
+              style={{
+                // BUTTON STYLING - SMALLER SIZE
+                fontSize: '1.3rem',
+                fontWeight: 700,
+                fontFamily: 'Arial Black, Arial, sans-serif',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                padding: '1.2rem 3rem',
+                background: '#000000',
+                color: '#ffffff',
+                border: '3px solid #ffffff',
+                borderRadius: '0',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 8px rgba(255,255,255,0.2)',
+                
+                // HOVER EFFECTS
+                ':hover': {
+                  background: '#ffffff',
+                  color: '#000000',
+                  border: '3px solid #ffffff',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 12px rgba(255,255,255,0.3)'
+                }
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = '#ffffff';
+                e.target.style.color = '#000000';
+                e.target.style.transform = 'translateY(-2px)';
+                e.target.style.boxShadow = '0 6px 12px rgba(255,255,255,0.3)';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = '#000000';
+                e.target.style.color = '#ffffff';
+                e.target.style.transform = 'translateY(0)';
+                e.target.style.boxShadow = '0 4px 8px rgba(255,255,255,0.2)';
+              }}
+            >
+              JOIN NOW
+            </button>
           </div>
+
         </div>
       </div>
     </section>

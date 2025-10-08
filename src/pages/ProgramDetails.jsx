@@ -25,7 +25,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import ProfileCard from '../components/ProfileCard';
 import '../index.css';
 
 // ==========================================================================
@@ -192,37 +191,17 @@ const ProgramDetails = () => {
       <div
         style={{
           width: '100%',
-          maxWidth: 1400,
+          maxWidth: '1200px',
           margin: '0 auto',
           boxSizing: 'border-box',
-          display: 'flex',
-          gap: '3rem',
-          alignItems: 'flex-start',
+          padding: '0 2rem'
         }}
       >
-        {/* Left Column - Profile Card */}
-        <div style={{ flex: '0 0 clamp(300px, 25vw, 400px)', minWidth: 300 }}>
-          <ProfileCard
-            name="Shriraj"
-            title="Fitness Expert & Coach"
-            handle="shrirajfit"
-            status=""
-            contactText="Ask a Question"
-            avatarUrl="https://i.ibb.co/SXc6H7gC/PHOTOg-2025-06-26-09-36-17-2.jpg"
-            miniAvatarUrl="https://i.ibb.co/SXc6H7gC/PHOTOg-2025-06-26-09-36-17-2.jpg"
-            showUserInfo={true}
-            enableTilt={true}
-            onContactClick={handleAskQuestion}
-          />
-        </div>
-
-        {/* Right Column - Program Details */}
-        <div style={{ flex: '1 1 600px', minWidth: 300 }}>
-          <div className="animate-stagger-1">
+        {/* Program Header - Centered */}
+          <div className="animate-stagger-1" style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <div style={{ 
               fontSize: '4rem', 
-              marginBottom: '1.5rem',
-              textAlign: 'center'
+              marginBottom: '1.5rem'
             }}>
               {program.icon}
             </div>
@@ -230,126 +209,180 @@ const ProgramDetails = () => {
             <h1 style={{
               fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
               fontWeight: 900,
-              letterSpacing: '1px',
+              letterSpacing: '2px',
               textTransform: 'uppercase',
               color: '#000000',
-              backgroundColor: '#fff',
-              padding: '0.4em 0.8em',
-              display: 'inline-block',
-              borderRadius: '0.3rem',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
-              border: '2px solid #000',
-              textAlign: 'center',
+              fontFamily: 'Arial Black, Arial, sans-serif',
               marginBottom: '2rem',
-              lineHeight: 1.05,
-              width: '100%'
+              lineHeight: 1.1
             }}>
               {program.title}
             </h1>
           </div>
 
-          <div className="animate-stagger-2" style={{ marginBottom: '2rem' }}>
-            <p style={{
-              fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
-              color: '#000000',
-              lineHeight: 1.6,
-              marginBottom: '2rem'
-            }}>
-              {program.desc}
-            </p>
-          </div>
-
-          <div className="animate-stagger-3" style={{
+          {/* Two Column Layout */}
+          <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '1.5rem',
-            marginBottom: '2.5rem'
+            gridTemplateColumns: '2fr 1fr',
+            gap: '4rem',
+            alignItems: 'start',
+            marginBottom: '3rem'
           }}>
-            <div style={{
-              background: '#ffffff',
-              border: '2px solid #000000',
-              borderRadius: '1rem',
-              padding: '1.5rem',
-              textAlign: 'center'
-            }}>
-              <div style={{ 
-                fontSize: '1.5rem', 
-                fontWeight: 700, 
+            {/* Left Column - Description */}
+            <div className="animate-stagger-2">
+              <h2 style={{
+                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                fontWeight: 900,
                 color: '#000000',
-                marginBottom: '0.5rem'
+                fontFamily: 'Arial Black, Arial, sans-serif',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                marginBottom: '1.5rem',
+                textAlign: 'left'
               }}>
-                {formatPrice(program.price)}
-              </div>
-              <div style={{ 
-                color: '#000000', 
-                fontSize: '1rem',
-                fontWeight: 600
+                PROGRAM OVERVIEW
+              </h2>
+              
+              <p style={{
+                fontSize: 'clamp(1.1rem, 2vw, 1.3rem)',
+                color: '#000000',
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 600,
+                lineHeight: 1.6,
+                textAlign: 'left',
+                marginBottom: '2rem'
               }}>
-                Total Investment
-              </div>
+                {program.desc}
+              </p>
+              
+              <p style={{
+                fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
+                color: '#000000',
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 500,
+                lineHeight: 1.5,
+                textAlign: 'left',
+                marginBottom: '1.5rem'
+              }}>
+                Our comprehensive approach combines cutting-edge fitness science with personalized coaching to ensure you achieve your goals safely and effectively. You'll receive detailed workout plans, nutrition guidance, and ongoing support throughout your journey.
+              </p>
+              
+              <p style={{
+                fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
+                color: '#000000',
+                fontFamily: 'Arial, sans-serif',
+                fontWeight: 500,
+                lineHeight: 1.5,
+                textAlign: 'left'
+              }}>
+                Join thousands of satisfied clients who have transformed their lives through our proven methodology. Your success is our commitment, and we're here to guide you every step of the way.
+              </p>
             </div>
 
-            <div style={{
-              background: '#ffffff',
-              border: '2px solid #000000',
-              borderRadius: '1rem',
-              padding: '1.5rem',
-              textAlign: 'center'
-            }}>
-              <div style={{ 
-                fontSize: '1.5rem', 
-                fontWeight: 700, 
+            {/* Right Column - Pricing & Duration */}
+            <div className="animate-stagger-3">
+              <h2 style={{
+                fontSize: 'clamp(1.5rem, 3vw, 2rem)',
+                fontWeight: 900,
                 color: '#000000',
-                marginBottom: '0.5rem'
+                fontFamily: 'Arial Black, Arial, sans-serif',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                marginBottom: '1.5rem',
+                textAlign: 'left'
               }}>
-                {program.duration}
-              </div>
-              <div style={{ 
-                color: '#000000', 
-                fontSize: '1rem',
-                fontWeight: 600
-              }}>
-                Program Duration
+                PROGRAM DETAILS
+              </h2>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{
+                  background: '#ffffff',
+                  border: '2px solid #000000',
+                  borderRadius: '0',
+                  padding: '1.2rem',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ 
+                    fontSize: '1.8rem', 
+                    fontWeight: 900, 
+                    color: '#000000',
+                    fontFamily: 'Arial Black, Arial, sans-serif',
+                    letterSpacing: '1px',
+                    marginBottom: '0.3rem'
+                  }}>
+                    {formatPrice(program.price)}
+                  </div>
+                  <div style={{ 
+                    color: '#000000', 
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    fontFamily: 'Arial, sans-serif',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    TOTAL INVESTMENT
+                  </div>
+                </div>
+
+                <div style={{
+                  background: '#ffffff',
+                  border: '2px solid #000000',
+                  borderRadius: '0',
+                  padding: '1.2rem',
+                  textAlign: 'center'
+                }}>
+                  <div style={{ 
+                    fontSize: '1.8rem', 
+                    fontWeight: 900, 
+                    color: '#000000',
+                    fontFamily: 'Arial Black, Arial, sans-serif',
+                    letterSpacing: '1px',
+                    marginBottom: '0.3rem'
+                  }}>
+                    {program.duration}
+                  </div>
+                  <div style={{ 
+                    color: '#000000', 
+                    fontSize: '0.9rem',
+                    fontWeight: 700,
+                    fontFamily: 'Arial, sans-serif',
+                    letterSpacing: '1px',
+                    textTransform: 'uppercase'
+                  }}>
+                    PROGRAM DURATION
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="animate-stagger-4" style={{
             display: 'flex',
-            gap: '1rem',
-            flexWrap: 'wrap',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            marginTop: '2rem'
           }}>
             <button
               className="btn"
               onClick={handleProceedToJoin}
               style={{
-                fontSize: '1.1rem',
-                padding: '1rem 2.5rem',
-                flex: '1 1 200px',
-                minWidth: '200px'
+                fontSize: '1.4rem',
+                fontWeight: 700,
+                fontFamily: 'Arial Black, Arial, sans-serif',
+                letterSpacing: '1px',
+                textTransform: 'uppercase',
+                padding: '1.5rem 4rem',
+                width: '100%',
+                maxWidth: '500px',
+                background: '#000000',
+                color: '#ffffff',
+                border: '3px solid #000000',
+                borderRadius: '0',
+                transition: 'all 0.3s ease'
               }}
             >
-              Proceed to Join
-            </button>
-            
-            <button
-              className="btn"
-              onClick={handleAskQuestion}
-              style={{
-                fontSize: '1.1rem',
-                padding: '1rem 2.5rem',
-                flex: '1 1 200px',
-                minWidth: '200px',
-                background: '#ffffff',
-                color: '#000000',
-                border: '2px solid #000000'
-              }}
-            >
-              Ask a Question
+              PROCEED TO JOIN
             </button>
           </div>
-        </div>
       </div>
     </section>
   );
