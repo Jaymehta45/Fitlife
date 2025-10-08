@@ -20,7 +20,7 @@
  * - Modify the routing behavior in the Link components
  */
 
-import React, { useRef, useCallback } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import '../index.css';
 
@@ -35,7 +35,6 @@ const programs = [
     title: 'Strength Training',                                    // Program name
     desc: 'Build muscle and power with science-backed routines.', // Description
     color: 'linear-gradient(90deg, #6d83f2 0%, #a084ee 100%)',   // Gradient (unused in current theme)
-    icon: '💪',                                                    // Emoji icon
     slug: 'strength-training',                                    // URL slug for routing
     backgroundImage: 'https://supremepersonaltraining.com/wp-content/uploads/2023/07/weighs-dumbbell-1200x800.jpg', // Background image
   },
@@ -43,7 +42,6 @@ const programs = [
     title: 'Cardio Fitness',                                      // Program name
     desc: 'Boost endurance and burn calories with dynamic cardio.', // Description
     color: 'linear-gradient(90deg, #a084ee 0%, #6d83f2 100%)',   // Gradient (unused in current theme)
-    icon: '🏃‍♂️',                                                  // Emoji icon
     slug: 'cardio-fitness',                                      // URL slug for routing
     backgroundImage: 'https://media.istockphoto.com/id/1498050355/photo/start-and-finish-point-of-a-race-track-in-a-stadium.jpg?s=612x612&w=0&k=20&c=931T8Gsyixp3pGTZMa5LsyXQpYvCWisWyeSj46hlkCE=', // Background image
   },
@@ -51,7 +49,6 @@ const programs = [
     title: 'Weight Loss',                                         // Program name
     desc: 'Personalized plans to help you lose fat and keep it off.', // Description
     color: 'linear-gradient(90deg, #232946 0%, #a084ee 100%)',   // Gradient (unused in current theme)
-    icon: '🔥',                                                    // Emoji icon
     slug: 'weight-loss',                                          // URL slug for routing
     backgroundImage: 'https://images.stockcake.com/public/6/a/9/6a92ba1b-64d2-4117-a57e-8393e5c89024_medium/dewy-fruit-contrast-stockcake.jpg', // Background image
   },
@@ -63,11 +60,8 @@ const Programs = React.memo(() => {
   // ==========================================================================
   const cardsRef = useRef([]); // Array of refs for each program card
   // ==========================================================================
-  // FIXED OVERLAY OPACITY
+  // SPOTLIGHT EFFECT REMOVED
   // ==========================================================================
-  // Fixed overlay opacity for background images (0 = fully transparent, 1 = fully opaque)
-  // TO CHANGE: Modify this value between 0 and 1
-  const overlayOpacity = 0.4; // 85% opacity - good balance between background visibility and text readability
 
   // ==========================================================================
   // SPOTLIGHT EFFECT REMOVED
@@ -199,13 +193,11 @@ const Programs = React.memo(() => {
                {/* PROGRAM DESCRIPTION - REMOVED */}
               
               {/* ==========================================================================
-                  ACTION BUTTONS
+                  ACTION BUTTON
                   ========================================================================== */}
               <div style={{ 
                 display: 'flex',                    // Horizontal layout
-                gap: '0.8rem',                     // Space between buttons
-                flexWrap: 'wrap',                  // Wrap on smaller screens
-                justifyContent: 'center'           // Center buttons
+                justifyContent: 'center'           // Center button
               }}>
                 {/* VIEW DETAILS BUTTON */}
                 {/* Links to individual program details page */}
@@ -214,41 +206,64 @@ const Programs = React.memo(() => {
                   className="btn"                   // Button styling class
                   style={{ 
                     fontSize: '1rem',              // Font size
-                    padding: '0.6rem 1.2rem',     // Button padding
-                    flex: '1 1 120px',            // Flexible width
-                    minWidth: '120px',            // Minimum width
+                    padding: '0.8rem 2rem',        // Button padding
                     textAlign: 'center',          // Center text
                     textDecoration: 'none',       // Remove underline
                     background: '#000000',        // Black background
                     color: '#ffffff',             // White text
-                    border: '2px solid #ffffff'  // White border
+                    border: '2px solid #ffffff',  // White border
+                    borderRadius: '0.5rem',       // Rounded corners
+                    fontWeight: 700,              // Bold text
+                    transition: 'all 0.3s ease'   // Smooth transitions
                   }}
                 >
                   View Details
                 </Link>
-                
-                {/* JOIN NOW BUTTON */}
-                {/* Links to checkout page for this program */}
-                <Link
-                  to={`/checkout/${p.slug}`}       // Route to checkout
-                  className="btn"                   // Button styling class
-                  style={{ 
-                    fontSize: '1rem',              // Font size
-                    padding: '0.6rem 1.2rem',     // Button padding
-                    flex: '1 1 120px',            // Flexible width
-                    minWidth: '120px',            // Minimum width
-                    textAlign: 'center',          // Center text
-                    textDecoration: 'none',       // Remove underline
-                    background: '#000000',        // Black background
-                    color: '#ffffff',             // White text
-                    border: '2px solid #ffffff'  // White border
-                  }}
-                >
-                  Join Now
-                </Link>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* ==========================================================================
+            VIEW ALL PROGRAMS BUTTON
+            ========================================================================== */}
+        <div className="animate-stagger-5" style={{ 
+          textAlign: 'center', 
+          marginTop: '3rem',
+          padding: '0 2rem'
+        }}>
+          <Link
+            to="/programs"
+            style={{
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              fontFamily: 'Arial Black, Arial, sans-serif',
+              letterSpacing: '1px',
+              textTransform: 'uppercase',
+              padding: '1rem 2.5rem',
+              background: '#000000',
+              color: '#ffffff',
+              border: '2px solid #ffffff',
+              borderRadius: '0.5rem',
+              textDecoration: 'none',
+              transition: 'all 0.3s ease',
+              display: 'inline-block'
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.background = '#ffffff';
+              e.target.style.color = '#000000';
+              e.target.style.transform = 'translateY(-2px)';
+              e.target.style.boxShadow = '0 6px 12px rgba(255,255,255,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.background = '#000000';
+              e.target.style.color = '#ffffff';
+              e.target.style.transform = 'translateY(0)';
+              e.target.style.boxShadow = 'none';
+            }}
+          >
+            View All Programs →
+          </Link>
         </div>
       </div>
     </section>

@@ -315,3 +315,20 @@ TO MODIFY THE WEBSITE:
 - Disable color inversion: Remove invert-colors class from App.js
 */
 
+/* ==========================================================================
+   ALL PROGRAMS PAGE RESPONSIVE STYLES
+   ========================================================================== */
+.program-content-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .program-content-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+

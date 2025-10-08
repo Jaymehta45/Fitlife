@@ -21,7 +21,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import '../index.css';
 
 // ==========================================================================
@@ -32,7 +32,17 @@ import '../index.css';
 // TO CHANGE SECTIONS: Modify the sectionId values
 const navLinks = [
   { label: 'Home', href: '/', sectionId: 'about' },        // Points to About section
-  { label: 'Programs', href: '/', sectionId: 'programs' }, // Points to Programs section
+  { 
+    label: 'Programs', 
+    href: '/programs', 
+    sectionId: 'programs',
+    dropdown: [
+      { label: 'All Programs', href: '/programs' },
+      { label: 'Strength Training', href: '/programs/strength-training' },
+      { label: 'Cardio Fitness', href: '/programs/cardio-fitness' },
+      { label: 'Weight Loss', href: '/programs/weight-loss' }
+    ]
+  },
   { label: 'Testimonials', href: '/', sectionId: 'testimonials' }, // Points to Testimonials section
   { label: 'Contact', href: '/', sectionId: 'contact' },   // Points to Contact section
 ];
@@ -43,6 +53,7 @@ const Navbar = React.memo(() => {
   // ==========================================================================
   const [active, setActive] = useState('about');     // Currently active section
   const [blobStyle, setBlobStyle] = useState({ left: 0, width: 0 }); // Animation blob position
+  const [dropdownOpen, setDropdownOpen] = useState(false); // Dropdown state
   const navRef = useRef();                          // Reference to navigation element
   const location = useLocation();                   // Current page location
   const navigate = useNavigate();                   // Navigation function
@@ -216,48 +227,105 @@ const Navbar = React.memo(() => {
             {/* Render each navigation link with active state and animations */}
             {navLinks.map(link => {
               const isActive = getActiveSection() === link.sectionId;
+              const hasDropdown = link.dropdown;
+              
               return (
                 <li key={`${link.sectionId}-${link.label}`} style={{ position: 'relative', zIndex: 1 }}>
-                  <button
-                    onClick={() => handleNavClick(link)}
-                    className={isActive ? 'nav-link active' : 'nav-link'}
-                    style={{
-                      // TEXT STYLING
-                      color: isActive ? '#000000' : '#ffffff',  // Black text when active, white when inactive
-                      fontWeight: 900,           // Bold weight
-                      fontSize: '1.15rem',       // Large text
-                      letterSpacing: '-0.5px',    // Tighter spacing
-                      transition: 'all 0.3s ease',  // Smooth transitions for all properties
-                      padding: '0.3rem 0.6rem',  // Further reduced padding for tighter spacing
-                      position: 'relative',       // For absolute positioned elements
-                      borderRadius: '25px',       // Rounded background
-                      
-                      // BUTTON STYLING
-                      background: isActive ? '#ffffff' : 'transparent',  // White background when active
-                      border: isActive ? '2px solid #ffffff' : '2px solid transparent',  // White border when active
-                      cursor: 'pointer',         // Pointer cursor
-                      boxShadow: isActive ? '0 4px 12px rgba(255,255,255,0.3)' : 'none',  // Shadow when active
-                    }}
+                  <div
+                    style={{ position: 'relative' }}
+                    onMouseEnter={() => hasDropdown && setDropdownOpen(true)}
+                    onMouseLeave={() => hasDropdown && setDropdownOpen(false)}
                   >
-                    {link.label}
-                    
-                    {/* ANIMATED UNDERLINE */}
-                    {/* This creates the smooth underline animation */}
-                    <span
+                    <button
+                      onClick={() => handleNavClick(link)}
+                      className={isActive ? 'nav-link active' : 'nav-link'}
                       style={{
-                        position: 'absolute',
-                        left: 0,
-                        right: 0,
-                        bottom: -6,              // Position below text
-                        height: 3,               // Underline thickness
-                        background: '#000000',   // Black underline
-                        borderRadius: 2,         // Rounded corners
-                        transform: `scaleX(${isActive ? 1 : 0})`, // Scale from 0 to 1
-                        transformOrigin: isActive ? 'left center' : 'right center', // Animation direction
-                        transition: 'transform 300ms cubic-bezier(0.23, 1, 0.32, 1)', // Smooth animation
+                        // TEXT STYLING
+                        color: isActive ? '#000000' : '#ffffff',  // Black text when active, white when inactive
+                        fontWeight: 900,           // Bold weight
+                        fontSize: '1.15rem',       // Large text
+                        letterSpacing: '-0.5px',    // Tighter spacing
+                        transition: 'all 0.3s ease',  // Smooth transitions for all properties
+                        padding: '0.3rem 0.6rem',  // Further reduced padding for tighter spacing
+                        position: 'relative',       // For absolute positioned elements
+                        borderRadius: '25px',       // Rounded background
+                        
+                        // BUTTON STYLING
+                        background: isActive ? '#ffffff' : 'transparent',  // White background when active
+                        border: isActive ? '2px solid #ffffff' : '2px solid transparent',  // White border when active
+                        cursor: 'pointer',         // Pointer cursor
+                        boxShadow: isActive ? '0 4px 12px rgba(255,255,255,0.3)' : 'none',  // Shadow when active
                       }}
-                    />
-                  </button>
+                    >
+                      {link.label}
+                      
+                      {/* ANIMATED UNDERLINE */}
+                      {/* This creates the smooth underline animation */}
+                      <span
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          right: 0,
+                          bottom: -6,              // Position below text
+                          height: 3,               // Underline thickness
+                          background: '#000000',   // Black underline
+                          borderRadius: 2,         // Rounded corners
+                          transform: `scaleX(${isActive ? 1 : 0})`, // Scale from 0 to 1
+                          transformOrigin: isActive ? 'left center' : 'right center', // Animation direction
+                          transition: 'transform 300ms cubic-bezier(0.23, 1, 0.32, 1)', // Smooth animation
+                        }}
+                      />
+                    </button>
+
+                    {/* DROPDOWN MENU */}
+                    {hasDropdown && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          background: '#ffffff',
+                          borderRadius: '0.5rem',
+                          boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
+                          border: '1px solid #e0e0e0',
+                          minWidth: '200px',
+                          opacity: dropdownOpen ? 1 : 0,
+                          visibility: dropdownOpen ? 'visible' : 'hidden',
+                          transition: 'all 0.3s ease',
+                          zIndex: 1000,
+                          marginTop: '0.5rem'
+                        }}
+                      >
+                        {link.dropdown.map((dropdownItem, index) => (
+                          <Link
+                            key={dropdownItem.href}
+                            to={dropdownItem.href}
+                            style={{
+                              display: 'block',
+                              padding: '0.8rem 1.2rem',
+                              color: '#000000',
+                              textDecoration: 'none',
+                              fontWeight: 600,
+                              fontSize: '0.95rem',
+                              transition: 'all 0.2s ease',
+                              borderBottom: index < link.dropdown.length - 1 ? '1px solid #f0f0f0' : 'none'
+                            }}
+                            onMouseEnter={(e) => {
+                              e.target.style.background = '#f8f8f8';
+                              e.target.style.color = '#000000';
+                            }}
+                            onMouseLeave={(e) => {
+                              e.target.style.background = 'transparent';
+                              e.target.style.color = '#000000';
+                            }}
+                          >
+                            {dropdownItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </li>
               );
             })}

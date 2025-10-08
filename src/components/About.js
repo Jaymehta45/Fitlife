@@ -21,6 +21,7 @@
  */
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../index.css';
 import ProfileCard from './ProfileCard';
 
@@ -32,6 +33,8 @@ import ProfileCard from './ProfileCard';
 const BG_URL = 'https://gymhero.me/active_storage_proxy/eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwMzI3M2I1Ni0xNjZlLTQ4M2MtYWQ0Yi05MzM2MmY0MTg5M2YiLCJ0cmFuc2Zvcm1hdGlvbnMiOnt9fQ.F9C_qRN_eJINDDpj_L8PfbX9nDeJduRbupE2mNpzP50';
 
 const About = () => {
+  const navigate = useNavigate();
+  
   // ==========================================================================
   // OVERLAY CONFIGURATION
   // ==========================================================================
@@ -165,8 +168,8 @@ const About = () => {
             justifyContent: 'center',
             width: '100%'
           }}>
-            <button
-              onClick={() => window.location.href = '#programs'}
+                <button
+                  onClick={() => navigate('/programs')}
               style={{
                 // BUTTON STYLING - SMALLER SIZE
                 fontSize: '1.3rem',

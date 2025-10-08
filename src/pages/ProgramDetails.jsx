@@ -40,7 +40,6 @@ const LOCAL_PROGRAMS = [
     desc: "Build muscle and power with science-backed routines designed to maximize your strength gains. Our comprehensive program includes progressive overload techniques, proper form guidance, and personalized workout plans tailored to your fitness level.", 
     price: 149900,  // Price in paise (₹1499.00)
     duration: "12 weeks", 
-    icon: "💪" 
   },
   { 
     slug: "cardio-fitness", 
@@ -48,7 +47,6 @@ const LOCAL_PROGRAMS = [
     desc: "Boost endurance and burn calories with dynamic cardio workouts. This program focuses on improving cardiovascular health, increasing stamina, and helping you achieve your fitness goals through varied and engaging cardio exercises.", 
     price: 99900,   // Price in paise (₹999.00)
     duration: "8 weeks", 
-    icon: "🏃‍♂️" 
   },
   { 
     slug: "weight-loss", 
@@ -56,7 +54,6 @@ const LOCAL_PROGRAMS = [
     desc: "Personalized plans to help you lose fat and keep it off. Our weight loss program combines nutrition guidance, effective workouts, and lifestyle coaching to help you achieve sustainable results and maintain your ideal weight.", 
     price: 129900,  // Price in paise (₹1299.00)
     duration: "10 weeks", 
-    icon: "🔥" 
   }
 ];
 
@@ -199,13 +196,6 @@ const ProgramDetails = () => {
       >
         {/* Program Header - Centered */}
           <div className="animate-stagger-1" style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <div style={{ 
-              fontSize: '4rem', 
-              marginBottom: '1.5rem'
-            }}>
-              {program.icon}
-            </div>
-            
             <h1 style={{
               fontSize: 'clamp(2.5rem, 5vw, 3.5rem)',
               fontWeight: 900,
@@ -255,28 +245,6 @@ const ProgramDetails = () => {
                 {program.desc}
               </p>
               
-              <p style={{
-                fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-                color: '#000000',
-                fontFamily: 'Arial, sans-serif',
-                fontWeight: 500,
-                lineHeight: 1.5,
-                textAlign: 'left',
-                marginBottom: '1.5rem'
-              }}>
-                Our comprehensive approach combines cutting-edge fitness science with personalized coaching to ensure you achieve your goals safely and effectively. You'll receive detailed workout plans, nutrition guidance, and ongoing support throughout your journey.
-              </p>
-              
-              <p style={{
-                fontSize: 'clamp(1rem, 1.8vw, 1.2rem)',
-                color: '#000000',
-                fontFamily: 'Arial, sans-serif',
-                fontWeight: 500,
-                lineHeight: 1.5,
-                textAlign: 'left'
-              }}>
-                Join thousands of satisfied clients who have transformed their lives through our proven methodology. Your success is our commitment, and we're here to guide you every step of the way.
-              </p>
             </div>
 
             {/* Right Column - Pricing & Duration */}
@@ -365,22 +333,21 @@ const ProgramDetails = () => {
               className="btn"
               onClick={handleProceedToJoin}
               style={{
-                fontSize: '1.4rem',
+                fontSize: '1.1rem',
                 fontWeight: 700,
                 fontFamily: 'Arial Black, Arial, sans-serif',
-                letterSpacing: '1px',
+                letterSpacing: '0.5px',
                 textTransform: 'uppercase',
-                padding: '1.5rem 4rem',
-                width: '100%',
-                maxWidth: '500px',
+                padding: '1rem 2.5rem',
                 background: '#000000',
                 color: '#ffffff',
-                border: '3px solid #000000',
-                borderRadius: '0',
-                transition: 'all 0.3s ease'
+                border: '2px solid #000000',
+                borderRadius: '0.5rem',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
               }}
             >
-              PROCEED TO JOIN
+              PROCEED TO CHECKOUT
             </button>
           </div>
       </div>

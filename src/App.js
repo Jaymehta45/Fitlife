@@ -21,6 +21,7 @@
 
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
 
 // Component imports - all main sections and pages
 import Navbar from './components/Navbar';           // Fixed navigation bar
@@ -29,8 +30,27 @@ import Programs from './components/Programs';        // Program cards grid
 import Testimonials from './components/Testimonials'; // Client testimonials carousel
 import Contact from './components/Contact';          // Contact form
 import Footer from './components/Footer';            // Site footer
+import AllPrograms from './pages/AllPrograms.jsx';   // All programs page
 import ProgramDetails from './pages/ProgramDetails'; // Individual program page
 import Checkout from './pages/Checkout';             // Checkout placeholder
+
+function AuthTest() {
+  return (
+    <div style={{ textAlign: "center", margin: "1rem 0" }}>
+      <SignedOut>
+        <SignInButton>
+          <button style={{ padding: "0.8rem 1.25rem", fontWeight: 800, borderRadius: 8 }}>Sign In</button>
+        </SignInButton>
+        <SignUpButton>
+          <button style={{ marginLeft: 12, padding: "0.8rem 1.25rem", fontWeight: 800, borderRadius: 8 }}>Sign Up</button>
+        </SignUpButton>
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
+    </div>
+  );
+}
 
 function App() {
   // ==========================================================================
@@ -105,6 +125,9 @@ function App() {
       
       {/* Main content area - changes based on current route */}
       <main>
+        {/* Test Auth UI - visible for testing */}
+        <AuthTest />
+        
         <Routes>
           {/* HOME PAGE ROUTE */}
           {/* This is the main landing page with all sections */}
@@ -116,6 +139,10 @@ function App() {
               <Contact />      {/* Contact form */}
             </>
           } />
+          
+          {/* ALL PROGRAMS ROUTE */}
+          {/* Shows all available programs */}
+          <Route path="/programs" element={<AllPrograms />} />
           
           {/* PROGRAM DETAILS ROUTE */}
           {/* Shows individual program information */}
