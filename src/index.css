@@ -1,50 +1,179 @@
-/* ==========================================================================
-   Clean, optimized CSS for fitlife-app
-   ========================================================================== */
+/**
+ * ==========================================================================
+ * index.css - Global Styles for FitLife App
+ * ==========================================================================
+ * 
+ * This file contains all the global styles for the website including:
+ * 1. CSS Variables for consistent theming
+ * 2. Global resets and base styles
+ * 3. Component-specific styles
+ * 4. Animations and transitions
+ * 5. Responsive design rules
+ * 6. Color inversion system
+ * 
+ * THEME SYSTEM:
+ * - Uses CSS variables for easy color changes
+ * - Implements color inversion for black/white theme
+ * - Responsive design with clamp() functions
+ * 
+ * TO MODIFY STYLING:
+ * - Change CSS variables in :root section
+ * - Modify component styles in their respective sections
+ * - Add new animations in the animations section
+ * - Update responsive breakpoints in media queries
+ */
 
+/* ==========================================================================
+   CSS VARIABLES - THEME CONFIGURATION
+   ========================================================================== */
+/* These variables control the entire theme of the website */
+/* TO CHANGE COLORS: Modify these variables */
 :root {
-  --safe-top: env(safe-area-inset-top, 0px);
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-  --bg: #ffffff;
-  --fg: #000000;
-  --muted: #8b8b8b;
-  --accent: #000000;
-  --section-pad: clamp(2rem, 5vw, 4rem);
-  --container-max: 1200px;
-  --card-radius: 1.5rem;
+  /* SAFE AREA VARIABLES - For mobile devices with notches */
+  --safe-top: env(safe-area-inset-top, 0px);        /* Top safe area (iPhone notch) */
+  --safe-bottom: env(safe-area-inset-bottom, 0px);  /* Bottom safe area (iPhone home indicator) */
+  
+  /* COLOR THEME VARIABLES */
+  --bg: #ffffff;                    /* Background color (white) */
+  --fg: #000000;                    /* Foreground/text color (black) */
+  --muted: #8b8b8b;                 /* Muted text color (gray) */
+  --accent: #000000;                /* Accent color (black) */
+  
+  /* LAYOUT VARIABLES */
+  --section-pad: clamp(2rem, 5vw, 4rem);  /* Responsive section padding */
+  --container-max: 1200px;                 /* Maximum container width */
+  --card-radius: 1.5rem;                   /* Border radius for cards */
 }
 
-/* Global reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: hidden; }
+/* ==========================================================================
+   GLOBAL RESET AND BASE STYLES
+   ========================================================================== */
+/* Reset all default browser styles and set base typography */
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
+
+/* Smooth scrolling for anchor links */
+html { 
+  scroll-behavior: smooth; 
+  overflow-x: hidden; 
+}
+
+/* Base body styles */
 body {
   font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  background: var(--bg);
-  color: var(--fg);
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.6;
-  padding-top: calc(4.5rem + var(--safe-top));
+  background: var(--bg);                    /* Use CSS variable for background */
+  color: var(--fg);                         /* Use CSS variable for text color */
+  min-height: 100vh;                       /* Full viewport height */
+  -webkit-font-smoothing: antialiased;     /* Better font rendering on Mac */
+  -moz-osx-font-smoothing: grayscale;      /* Better font rendering on Firefox */
+  line-height: 1.6;                        /* Comfortable line spacing */
+  padding-top: calc(4.5rem + var(--safe-top)); /* Space for fixed navbar + safe area */
 }
 
-/* Layout */
-#root { min-height: 100vh; display: flex; flex-direction: column; }
-main { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: 0 1.5rem; }
-.container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 0 1rem; }
-section { width: 100%; margin-bottom: 2rem; border-radius: 2rem; padding: 0; scroll-snap-align: start; background: none; }
-section + section { border-top: 4px solid #000; padding-top: 2rem; }
+/* ==========================================================================
+   LAYOUT SYSTEM
+   ========================================================================== */
+/* Main layout containers and structure */
+#root { 
+  min-height: 100vh; 
+  display: flex; 
+  flex-direction: column; 
+}
 
-/* Typography */
-.text-gradient { background: none !important; background-clip: initial !important; -webkit-background-clip: initial !important; -webkit-text-fill-color: initial !important; color: var(--fg); font-weight: 900; }
-h1 { font-size: clamp(2rem, 6vw, 4rem); font-weight: 900; color: var(--fg); }
-h2 { font-size: clamp(1.75rem, 4vw, 2.8rem); font-weight: 900; color: var(--fg); }
-h3 { font-size: clamp(1.25rem, 3vw, 1.75rem); font-weight: 800; color: var(--fg); }
-p, li, label { font-size: clamp(0.95rem, 1.6vw, 1.05rem); color: var(--fg); }
+/* Main content area */
+main { 
+  width: 100%; 
+  max-width: var(--container-max); 
+  margin: 0 auto; 
+  padding: 0 1.5rem; 
+}
 
-/* Buttons */
-.btn { background: var(--accent); color: #fff; border: 2px solid var(--accent); border-radius: 0.75rem; padding: 0.8rem 2.2rem; font-weight: 900; cursor: pointer; transition: transform .18s ease, background .18s ease; box-shadow: none; }
-.btn:hover { background: #222; transform: translateY(-3px); }
+/* Generic container class */
+.container { 
+  width: 100%; 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  padding: 0 1rem; 
+}
+
+/* Section styling */
+section { 
+  width: 100%; 
+  margin-bottom: 2rem; 
+  border-radius: 2rem; 
+  padding: 0; 
+  scroll-snap-align: start; 
+  background: none; 
+}
+
+/* Section dividers */
+section + section { 
+  border-top: 4px solid #000; 
+  padding-top: 2rem; 
+}
+
+/* ==========================================================================
+   TYPOGRAPHY SYSTEM
+   ========================================================================== */
+/* Text gradient override for monochrome theme */
+.text-gradient { 
+  background: none !important; 
+  background-clip: initial !important; 
+  -webkit-background-clip: initial !important; 
+  -webkit-text-fill-color: initial !important; 
+  color: var(--fg); 
+  font-weight: 900; 
+}
+
+/* Heading styles with responsive sizing */
+h1 { 
+  font-size: clamp(2rem, 6vw, 4rem); 
+  font-weight: 900; 
+  color: var(--fg); 
+}
+
+h2 { 
+  font-size: clamp(1.75rem, 4vw, 2.8rem); 
+  font-weight: 900; 
+  color: var(--fg); 
+}
+
+h3 { 
+  font-size: clamp(1.25rem, 3vw, 1.75rem); 
+  font-weight: 800; 
+  color: var(--fg); 
+}
+
+/* Body text styles */
+p, li, label { 
+  font-size: clamp(0.95rem, 1.6vw, 1.05rem); 
+  color: var(--fg); 
+}
+
+/* ==========================================================================
+   BUTTON SYSTEM
+   ========================================================================== */
+/* Primary button styles */
+.btn { 
+  background: var(--accent); 
+  color: #fff; 
+  border: 2px solid var(--accent); 
+  border-radius: 0.75rem; 
+  padding: 0.8rem 2.2rem; 
+  font-weight: 900; 
+  cursor: pointer; 
+  transition: transform .18s ease, background .18s ease; 
+  box-shadow: none; 
+}
+
+/* Button hover effects */
+.btn:hover { 
+  background: #222; 
+  transform: translateY(-3px); 
+}
 
 /* Hero/About helpers */
 .hero-wrapper, .about-wrapper { width: 100%; max-width: var(--container-max); margin: 0 auto; padding: var(--section-pad); box-sizing: border-box; display: flex; align-items: center; gap: 2.5rem; flex-wrap: wrap; }
@@ -134,4 +263,56 @@ html.invert-colors img, html.invert-colors video, html.invert-colors canvas, htm
   .btn { padding: 0.6rem 1rem; font-size: 0.95rem; width: 100%; }
   body { padding-bottom: calc(var(--safe-bottom)); }
 }
+
+/* ==========================================================================
+   CSS FILE STRUCTURE SUMMARY
+   ========================================================================== */
+/*
+This CSS file is organized into the following sections:
+
+1. CSS VARIABLES (lines 26-46)
+   - Theme colors and layout variables
+   - Safe area variables for mobile devices
+
+2. GLOBAL RESET AND BASE STYLES (lines 48-74)
+   - Browser reset and base typography
+   - Smooth scrolling and font rendering
+
+3. LAYOUT SYSTEM (lines 76-116)
+   - Main containers and section styling
+   - Section dividers and spacing
+
+4. TYPOGRAPHY SYSTEM (lines 118-154)
+   - Heading styles with responsive sizing
+   - Body text and text gradient overrides
+
+5. BUTTON SYSTEM (lines 156-176)
+   - Primary button styles and hover effects
+
+6. COMPONENT STYLES (lines 178-200+)
+   - Hero/About helpers
+   - Card components
+   - Profile card overrides
+   - Navbar styling
+
+7. ANIMATIONS (lines 200+)
+   - Keyframe animations
+   - Scroll-triggered animations
+   - Staggered animations
+
+8. COLOR INVERSION SYSTEM (lines 200+)
+   - Site-wide color inversion
+   - Media element re-inversion
+
+9. RESPONSIVE DESIGN (lines 200+)
+   - Mobile-first responsive breakpoints
+   - Tablet and desktop optimizations
+
+TO MODIFY THE WEBSITE:
+- Change colors: Update CSS variables in :root section
+- Add new components: Add styles in component section
+- Modify animations: Update keyframes and animation classes
+- Change responsive behavior: Update media queries
+- Disable color inversion: Remove invert-colors class from App.js
+*/
 
