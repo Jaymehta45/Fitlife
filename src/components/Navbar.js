@@ -290,7 +290,7 @@ const Navbar = React.memo(() => {
                           background: '#ffffff',
                           borderRadius: '0.5rem',
                           boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
-                          border: '1px solid #e0e0e0',
+                          border: '2px solid #000000',
                           minWidth: '200px',
                           opacity: dropdownOpen ? 1 : 0,
                           visibility: dropdownOpen ? 'visible' : 'hidden',
@@ -311,7 +311,7 @@ const Navbar = React.memo(() => {
                               fontWeight: 600,
                               fontSize: '0.95rem',
                               transition: 'all 0.2s ease',
-                              borderBottom: index < link.dropdown.length - 1 ? '1px solid #f0f0f0' : 'none'
+                              borderBottom: index < link.dropdown.length - 1 ? '2px solid #000000' : 'none'
                             }}
                             onMouseEnter={(e) => {
                               e.target.style.background = '#f8f8f8';

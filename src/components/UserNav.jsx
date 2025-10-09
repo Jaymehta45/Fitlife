@@ -156,10 +156,12 @@ const UserNav = () => {
 
   const handleAvatarMouseEnter = (e) => {
     e.currentTarget.style.transform = 'scale(1.1)';
+    setDropdownOpen(true);
   };
 
   const handleAvatarMouseLeave = (e) => {
     e.currentTarget.style.transform = 'scale(1)';
+    // Don't close dropdown immediately to allow user to move to dropdown
   };
 
   const handleCartMouseEnter = (e) => {
@@ -181,7 +183,12 @@ const UserNav = () => {
   return (
     <div style={containerStyle}>
       {/* USER AVATAR SECTION */}
-      <div style={{ position: 'relative' }} ref={dropdownRef}>
+      <div 
+        style={{ position: 'relative' }} 
+        ref={dropdownRef}
+        onMouseEnter={() => setDropdownOpen(true)}
+        onMouseLeave={() => setDropdownOpen(false)}
+      >
         <SignedIn>
           {/* USER AVATAR - BLACK AND WHITE DESIGN */}
           <div
@@ -206,6 +213,15 @@ const UserNav = () => {
               >
                 View Cart
               </button>
+              
+              {/* HORIZONTAL SEPARATOR LINE */}
+              <div style={{
+                width: '100%',
+                height: '2px',
+                background: '#000000',
+                margin: '0.5rem 0'
+              }}></div>
+              
               <button
                 onClick={handleSignOut}
                 style={dropdownButtonStyle}
@@ -243,6 +259,14 @@ const UserNav = () => {
                   Sign In
                 </button>
               </SignInButton>
+              
+              {/* HORIZONTAL SEPARATOR LINE */}
+              <div style={{
+                width: '100%',
+                height: '2px',
+                background: '#000000',
+                margin: '0.5rem 0'
+              }}></div>
               
               <SignUpButton mode="modal">
                 <button
