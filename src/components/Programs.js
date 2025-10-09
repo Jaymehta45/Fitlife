@@ -149,7 +149,7 @@ const Programs = React.memo(() => {
                 
                 // HOVER EFFECTS
                 transition: 'all 0.3s ease',     // Smooth transitions
-                cursor: 'pointer',                // Pointer cursor
+                cursor: 'default',               // Default cursor (buttons will have pointer)
                 transform: 'scale(1)',            // Default scale
                 ':hover': {
                   transform: 'scale(1.05)',       // Scale up on hover
@@ -214,6 +214,7 @@ const Programs = React.memo(() => {
                     border: '2px solid #ffffff',  // White border
                     borderRadius: '0.5rem',       // Rounded corners
                     fontWeight: 700,              // Bold text
+                    cursor: 'pointer',            // Pointer cursor for button
                     transition: 'all 0.3s ease'   // Smooth transitions
                   }}
                 >
@@ -246,6 +247,7 @@ const Programs = React.memo(() => {
               border: '2px solid #ffffff',
               borderRadius: '0.5rem',
               textDecoration: 'none',
+              cursor: 'pointer',
               transition: 'all 0.3s ease',
               display: 'inline-block'
             }}

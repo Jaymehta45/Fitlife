@@ -22,6 +22,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+// Clerk imports removed - UserNav handles authentication display
 import '../index.css';
 
 // ==========================================================================
@@ -179,7 +180,7 @@ const Navbar = React.memo(() => {
       style={{
         // FIXED POSITIONING
         position: 'fixed',           // Stays at top of screen
-        top: 20,                     // Distance from top
+        top: 'max(1rem, env(safe-area-inset-top))', // Move to top of screen
         left: '50%',                 // Center horizontally
         transform: 'translateX(-50%)', // Perfect centering
         zIndex: 100,                 // Above other content
@@ -197,8 +198,9 @@ const Navbar = React.memo(() => {
         pointerEvents: 'none'        // Allow clicks to pass through to children
       }}
     >
-      {/* NAVIGATION CONTAINER */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', pointerEvents: 'auto' }}>
+          {/* NAVIGATION CONTAINER */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', pointerEvents: 'auto' }}>
+              {/* USER ACCOUNT CONTROL REMOVED - UserNav handles authentication display */}
         {/* NAVIGATION LINKS CONTAINER */}
         <div style={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
           <ul ref={navRef} style={{ display: 'flex', gap: '0.6rem', listStyle: 'none', margin: 0, padding: 0, position: 'relative', alignItems: 'center' }}>

@@ -21,7 +21,8 @@
 
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from "@clerk/clerk-react";
+// Clerk imports removed - UserNav handles authentication display
+import { CartProvider } from './context/CartContext';
 
 // Component imports - all main sections and pages
 import Navbar from './components/Navbar';           // Fixed navigation bar
@@ -33,21 +34,14 @@ import Footer from './components/Footer';            // Site footer
 import AllPrograms from './pages/AllPrograms.jsx';   // All programs page
 import ProgramDetails from './pages/ProgramDetails'; // Individual program page
 import Checkout from './pages/Checkout';             // Checkout placeholder
+import Cart from './pages/Cart';                     // Shopping cart page
+import UserNav from './components/UserNav';         // Floating user navigation
+import ToastContainer from './components/Toast';    // Toast notifications
 
 function AuthTest() {
   return (
     <div style={{ textAlign: "center", margin: "1rem 0" }}>
-      <SignedOut>
-        <SignInButton>
-          <button style={{ padding: "0.8rem 1.25rem", fontWeight: 800, borderRadius: 8 }}>Sign In</button>
-        </SignInButton>
-        <SignUpButton>
-          <button style={{ marginLeft: 12, padding: "0.8rem 1.25rem", fontWeight: 800, borderRadius: 8 }}>Sign Up</button>
-        </SignUpButton>
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn>
+      {/* Auth test UI removed - UserNav handles authentication display */}
     </div>
   );
 }
@@ -59,17 +53,17 @@ function App() {
   // NOTE: Global inversion removed - each component now has individual black and white styling
 
   // ==========================================================================
-  // PAGE RELOAD HANDLING
+  // PAGE RELOAD HANDLING - DISABLED
   // ==========================================================================
-  // This ensures users always start at the home page when reloading
-  // TO DISABLE: Remove this useEffect
-  useEffect(() => {
-    // Check if the current path is not the home page
-    if (window.location.pathname !== '/') {
-      // Redirect to home page
-      window.location.href = '/';
-    }
-  }, []);
+  // This useEffect was causing issues with sign-up redirects
+  // Removed to allow proper navigation to cart and other pages
+  // useEffect(() => {
+  //   // Check if the current path is not the home page
+  //   if (window.location.pathname !== '/') {
+  //     // Redirect to home page
+  //     window.location.href = '/';
+  //   }
+  // }, []);
 
   // ==========================================================================
   // SCROLL-TRIGGERED ANIMATIONS (OPTIMIZED)
@@ -119,14 +113,18 @@ function App() {
   // TO ADD NEW PAGES: Add new <Route> components here
   // TO CHANGE HOME PAGE: Modify the element prop of the "/" route
   return (
-    <Router>
-      {/* Fixed navigation bar - appears on all pages */}
-      <Navbar />
-      
-      {/* Main content area - changes based on current route */}
-      <main>
-        {/* Test Auth UI - visible for testing */}
-        <AuthTest />
+    <CartProvider>
+      <Router>
+        {/* Floating user navigation - appears on all pages */}
+        <UserNav />
+        
+        {/* Fixed navigation bar - appears on all pages */}
+        <Navbar />
+        
+        {/* Main content area - changes based on current route */}
+        <main>
+          {/* Test Auth UI - visible for testing */}
+          <AuthTest />
         
         <Routes>
           {/* HOME PAGE ROUTE */}
@@ -140,31 +138,39 @@ function App() {
             </>
           } />
           
-          {/* ALL PROGRAMS ROUTE */}
-          {/* Shows all available programs */}
-          <Route path="/programs" element={<AllPrograms />} />
-          
-          {/* PROGRAM DETAILS ROUTE */}
-          {/* Shows individual program information */}
-          {/* :slug is a URL parameter (e.g., /programs/strength-training) */}
-          <Route path="/programs/:slug" element={<ProgramDetails />} />
-          
-          {/* CHECKOUT ROUTE */}
-          {/* Placeholder for payment/checkout process */}
-          {/* :slug identifies which program is being purchased */}
-          <Route path="/checkout/:slug" element={<Checkout />} />
+              {/* ALL PROGRAMS ROUTE */}
+              {/* Shows all available programs */}
+              <Route path="/programs" element={<AllPrograms />} />
+              
+              {/* PROGRAM DETAILS ROUTE */}
+              {/* Shows individual program information */}
+              {/* :slug is a URL parameter (e.g., /programs/strength-training) */}
+              <Route path="/programs/:slug" element={<ProgramDetails />} />
+              
+              {/* CART ROUTE */}
+              {/* Shopping cart page */}
+              <Route path="/cart" element={<Cart />} />
+              
+              {/* CHECKOUT ROUTE */}
+              {/* Placeholder for payment/checkout process */}
+              {/* :slug identifies which program is being purchased */}
+              <Route path="/checkout/:slug" element={<Checkout />} />
           
           {/* CATCH-ALL ROUTE - REDIRECT TO HOME */}
           {/* Any unmatched routes will redirect to the home page */}
           {/* This ensures users always land on the home page when reloading */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </main>
-      
-      {/* Footer appears on all pages */}
-      <Footer />
-    </Router>
-  );
-}
+        </main>
+        
+            {/* Footer appears on all pages */}
+            <Footer />
+            
+            {/* Toast notifications container */}
+            <ToastContainer />
+          </Router>
+        </CartProvider>
+      );
+    }
 
 export default App;

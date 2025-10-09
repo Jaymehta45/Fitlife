@@ -25,6 +25,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ProceedToJoin from '../components/ProceedToJoin';
 import '../index.css';
 
 // ==========================================================================
@@ -97,20 +98,20 @@ const ProgramDetails = () => {
       }
     };
 
-    fetchProgram();
-  }, [slug]);
+        fetchProgram();
+      }, [slug]);
 
-  // ==========================================================================
-  // NAVIGATION HANDLERS
-  // ==========================================================================
-  // Handle navigation to checkout page
-  const handleProceedToJoin = () => {
-    navigate(`/checkout/${slug}`);
-  };
+      // ==========================================================================
+      // SIGN-UP SUCCESS HANDLER - REMOVED
+      // ==========================================================================
+      // Automatic sign-up handling removed to prevent multiple cart additions
+      // Users will manually add items after sign-up
 
-  const handleAskQuestion = () => {
-    navigate('#contact');
-  };
+      // ==========================================================================
+      // NAVIGATION HANDLERS
+      // ==========================================================================
+      // Note: handleProceedToJoin removed - now using Clerk's SignUpButton
+      // which handles navigation automatically after signup
 
   if (loading) {
     return (
@@ -329,26 +330,10 @@ const ProgramDetails = () => {
             justifyContent: 'center',
             marginTop: '2rem'
           }}>
-            <button
-              className="btn"
-              onClick={handleProceedToJoin}
-              style={{
-                fontSize: '1.1rem',
-                fontWeight: 700,
-                fontFamily: 'Arial Black, Arial, sans-serif',
-                letterSpacing: '0.5px',
-                textTransform: 'uppercase',
-                padding: '1rem 2.5rem',
-                background: '#000000',
-                color: '#ffffff',
-                border: '2px solid #000000',
-                borderRadius: '0.5rem',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-              }}
-            >
-              PROCEED TO CHECKOUT
-            </button>
+            <ProceedToJoin 
+              programSlug={slug} 
+              programData={program}
+            />
           </div>
       </div>
     </section>

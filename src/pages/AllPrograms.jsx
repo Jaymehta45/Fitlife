@@ -17,9 +17,11 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ProceedToJoin from '../components/ProceedToJoin';
 import '../index.css';
 
 const AllPrograms = () => {
+
   // ==========================================================================
   // PROGRAMS DATA (COPIED FROM PROGRAMDETAILS.JSX)
   // ==========================================================================
@@ -49,6 +51,12 @@ const AllPrograms = () => {
       slug: 'weight-loss'
     }
   ];
+
+  // ==========================================================================
+  // SIGN-UP SUCCESS HANDLER - REMOVED
+  // ==========================================================================
+  // Automatic sign-up handling removed to prevent multiple cart additions
+  // Users will manually add items after sign-up
 
   // ==========================================================================
   // PRICE FORMATTING FUNCTION
@@ -236,43 +244,11 @@ const AllPrograms = () => {
                 marginTop: '2rem',
                 marginBottom: index < programs.length - 1 ? '0' : '2rem'
               }}>
-                {/* PROCEED TO CHECKOUT BUTTON - BLACK BOX (COPIED FROM PROGRAMDETAILS) */}
-                <Link
-                  to={`/checkout/${program.slug}`}
-                  className="btn"
-                  style={{
-                    fontSize: '1.1rem',
-                    fontWeight: 700,
-                    fontFamily: 'Arial Black, Arial, sans-serif',
-                    letterSpacing: '0.5px',
-                    textTransform: 'uppercase',
-                    padding: '1rem 2.5rem',
-                    background: '#000000',
-                    color: '#ffffff',
-                    border: '2px solid #000000',
-                    borderRadius: '0.5rem',
-                    textDecoration: 'none',
-                    transition: 'all 0.3s ease',
-                    display: 'inline-block',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)'
-                  }}
-                  onMouseEnter={(e) => {
-                    e.target.style.background = '#ffffff';
-                    e.target.style.color = '#000000';
-                    e.target.style.border = '2px solid #000000';
-                    e.target.style.transform = 'translateY(-2px)';
-                    e.target.style.boxShadow = '0 6px 16px rgba(0,0,0,0.3)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.background = '#000000';
-                    e.target.style.color = '#ffffff';
-                    e.target.style.border = '2px solid #000000';
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
-                  }}
-                >
-                  PROCEED TO CHECKOUT
-                </Link>
+                {/* PROCEED TO CHECKOUT BUTTON - BLACK BOX WITH CLERK SIGNUP */}
+                <ProceedToJoin 
+                  programSlug={program.slug} 
+                  programData={program}
+                />
               </div>
             </div>
 
