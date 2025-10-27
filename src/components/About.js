@@ -105,7 +105,7 @@ const About = () => {
           <ProfileCard
             name="Shriraj"                                    // Coach name
             title="Fitness Expert & Coach"                   // Job title
-            handle="shrirajfit"                              // Social handle
+            handle="shrirajmahidhar_45"                              // Social handle
             status=""                                        // Status text (empty)
             contactText="Contact Me"                         // Contact button text
             avatarUrl="https://i.ibb.co/SXc6H7gC/PHOTOg-2025-06-26-09-36-17-2.jpg"  // Main profile image

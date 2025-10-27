@@ -4,9 +4,9 @@
  * ==========================================================================
  * 
  * This component handles the "Proceed to Join" flow:
- * 1. If user is signed in → navigate directly to checkout
+ * 1. If user is signed in → add to cart and navigate to cart page
  * 2. If user is signed out → open Clerk SignUp modal
- * 3. After successful signup → redirect to /checkout/{programSlug}
+ * 3. After successful signup → cart is automatically populated
  * 
  * TO MODIFY:
  * - Change redirectUrl pattern in SignUpButton

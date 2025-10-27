@@ -31,27 +31,47 @@ const UserNav = () => {
   const { getCartItemCount } = useCart();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const timeoutRef = useRef(null);
 
   // Authentication state managed by Clerk
 
   // ==========================================================================
-  // CLICK OUTSIDE HANDLER
+  // DELAYED CLOSE HANDLER
   // ==========================================================================
+  const openDropdown = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    setDropdownOpen(true);
+  };
+
+  const closeDropdown = () => {
+    // Clear any existing timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Wait 300ms before closing to allow user to move to dropdown
+    timeoutRef.current = setTimeout(() => {
+      setDropdownOpen(false);
+    }, 300);
+  };
+
+  const cancelClose = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+  };
+
+  // Cleanup timeout on unmount
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
-
-    if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [dropdownOpen]);
+  }, []);
 
   // ==========================================================================
   // STYLING CONFIGURATION
@@ -110,9 +130,8 @@ const UserNav = () => {
 
   const dropdownStyle = {
     position: 'absolute',
-    top: '100%',
+    top: 'calc(100% + 4px)', // Reduced gap to minimize dead space
     right: 0,
-    marginTop: '0.5rem',
     background: '#ffffff',
     border: '2px solid #000000',
     borderRadius: '8px',
@@ -156,12 +175,12 @@ const UserNav = () => {
 
   const handleAvatarMouseEnter = (e) => {
     e.currentTarget.style.transform = 'scale(1.1)';
-    setDropdownOpen(true);
+    openDropdown();
   };
 
   const handleAvatarMouseLeave = (e) => {
     e.currentTarget.style.transform = 'scale(1)';
-    // Don't close dropdown immediately to allow user to move to dropdown
+    closeDropdown();
   };
 
   const handleCartMouseEnter = (e) => {
@@ -186,8 +205,8 @@ const UserNav = () => {
       <div 
         style={{ position: 'relative' }} 
         ref={dropdownRef}
-        onMouseEnter={() => setDropdownOpen(true)}
-        onMouseLeave={() => setDropdownOpen(false)}
+        onMouseEnter={openDropdown}
+        onMouseLeave={closeDropdown}
       >
         <SignedIn>
           {/* USER AVATAR - BLACK AND WHITE DESIGN */}
@@ -204,7 +223,11 @@ const UserNav = () => {
 
           {/* USER DROPDOWN - SHOWS WHEN SIGNED IN */}
           {dropdownOpen && (
-            <div style={dropdownStyle}>
+            <div 
+              style={dropdownStyle}
+              onMouseEnter={openDropdown}
+              onMouseLeave={closeDropdown}
+            >
               <button
                 onClick={() => navigate('/cart')}
                 style={dropdownButtonStyle}
@@ -249,7 +272,11 @@ const UserNav = () => {
 
           {/* DROPDOWN MENU - ONLY VISIBLE WHEN SIGNED OUT */}
           {dropdownOpen && (
-            <div style={dropdownStyle}>
+            <div 
+              style={dropdownStyle}
+              onMouseEnter={openDropdown}
+              onMouseLeave={closeDropdown}
+            >
               <SignInButton mode="modal">
                 <button
                   style={dropdownButtonStyle}

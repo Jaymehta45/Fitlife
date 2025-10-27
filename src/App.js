@@ -12,7 +12,8 @@
  * ROUTING STRUCTURE:
  * - "/" (Home): Shows About, Programs, Testimonials, Contact sections
  * - "/programs/:slug": Individual program details page
- * - "/checkout/:slug": Checkout page for specific program
+ * - "/checkout": Checkout page with Razorpay integration
+ * - "/payment-success": Payment success animation and redirect to https://fitlife-dashboard-eqa4.vercel.app
  * 
  * TO MODIFY ROUTES: Add new <Route> components inside <Routes>
  * TO CHANGE THEME: Modify the 'invert-colors' class in useEffect
@@ -21,7 +22,7 @@
 
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-// Clerk imports removed - UserNav handles authentication display
+import { useUser } from "@clerk/clerk-react";
 import { CartProvider } from './context/CartContext';
 
 // Component imports - all main sections and pages
@@ -33,8 +34,9 @@ import Contact from './components/Contact';          // Contact form
 import Footer from './components/Footer';            // Site footer
 import AllPrograms from './pages/AllPrograms.jsx';   // All programs page
 import ProgramDetails from './pages/ProgramDetails'; // Individual program page
-import Checkout from './pages/Checkout';             // Checkout placeholder
+import Checkout from './pages/Checkout';             // Checkout with Razorpay
 import Cart from './pages/Cart';                     // Shopping cart page
+import PaymentSuccess from './pages/PaymentSuccess'; // Payment success animation
 import UserNav from './components/UserNav';         // Floating user navigation
 import ToastContainer from './components/Toast';    // Toast notifications
 
@@ -47,6 +49,36 @@ function AuthTest() {
 }
 
 function App() {
+  // ==========================================================================
+  // CLERK USER SYNC WITH SUPABASE
+  // ==========================================================================
+  const { user, isSignedIn } = useUser();
+
+  useEffect(() => {
+    if (isSignedIn && user) {
+      fetch("http://localhost:4000/api/users/sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          clerkId: user.id,
+          email: user.primaryEmailAddress?.emailAddress,
+          fullName: `${user.firstName || ""} ${user.lastName || ""}`,
+        }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          console.log("✅ User synced with Supabase:", data.user);
+        } else {
+          console.error("❌ Failed to sync user:", data.error);
+        }
+      })
+      .catch(error => {
+        console.error("❌ Error syncing user:", error);
+      });
+    }
+  }, [isSignedIn, user]);
+
   // ==========================================================================
   // THEME SETUP
   // ==========================================================================
@@ -152,9 +184,12 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               
               {/* CHECKOUT ROUTE */}
-              {/* Placeholder for payment/checkout process */}
-              {/* :slug identifies which program is being purchased */}
-              <Route path="/checkout/:slug" element={<Checkout />} />
+              {/* Payment checkout with Razorpay integration */}
+              <Route path="/checkout" element={<Checkout />} />
+              
+              {/* PAYMENT SUCCESS ROUTE */}
+              {/* Success animation page after payment */}
+              <Route path="/payment-success" element={<PaymentSuccess />} />
           
           {/* CATCH-ALL ROUTE - REDIRECT TO HOME */}
           {/* Any unmatched routes will redirect to the home page */}

@@ -5,14 +5,14 @@
  * 
  * This component displays a grid of program cards with:
  * 1. Program information (title, description, icon)
- * 2. Navigation links to program details and checkout
+ * 2. Navigation links to program details and cart
  * 3. Hover effects and animations
  * 4. Responsive grid layout
  * 
  * PROGRAM STRUCTURE:
  * - Each program has: title, description, icon, slug
  * - "View Details" links to /programs/:slug
- * - "Join Now" links to /checkout/:slug
+ * - "Join Now" adds to cart and shows cart link
  * 
  * TO MODIFY PROGRAMS:
  * - Add/remove items in the programs array

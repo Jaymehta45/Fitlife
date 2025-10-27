@@ -18,6 +18,13 @@
 .env.test.local
 .env.production.local
 
+# server folder
+server/
+
+# dashboard (not being used)
+dashboard/
+src/dashboard/
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

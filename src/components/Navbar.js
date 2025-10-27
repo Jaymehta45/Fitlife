@@ -71,8 +71,10 @@ const Navbar = React.memo(() => {
       return active; // Use scroll-based active state for home page
     } else if (pathname.startsWith('/programs/')) {
       return 'programs'; // Highlight Programs when on program details page
-    } else if (pathname.startsWith('/checkout/')) {
+    } else if (pathname === '/checkout') {
       return 'programs'; // Highlight Programs when on checkout page
+    } else if (pathname === '/cart') {
+      return 'programs'; // Highlight Programs when on cart page
     }
     
     return 'about'; // Default fallback

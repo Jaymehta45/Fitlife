@@ -33,6 +33,7 @@ const Cart = () => {
     getCartTotal, 
     getCartItemCount,
     addItem,
+    clearCart,
     isLoading 
   } = useCart();
   const hasProcessedSignUp = useRef(false);
@@ -131,7 +132,9 @@ const Cart = () => {
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
-    navigate('/checkout');
+    // Clear cart and show success animation directly
+    clearCart();
+    navigate('/payment-success');
   };
 
   const formatPrice = (price) => {
